@@ -3,6 +3,9 @@ A repository to store my ([Ryan Eaton](https://www.linkedin.com/in/ryan-l-eaton/
 
 ## Years
  - (previous years coming soon!)
+ - [2019](2019/readme.md) (not annotated)
+ - [2020](2020/readme.md) (not annotated)
+ - 2021 (coming soon!)
  - [2022](2022/README.md)
  - [2023](2023/readme.md)
  - 2024 (coming soon!)
