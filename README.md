@@ -12,4 +12,5 @@ A repository to store my ([Ryan Eaton](https://www.linkedin.com/in/ryan-l-eaton/
  - 2024 (coming soon!)
 
  *\* Annotated*
+ 
  *These used to be stored in separate repos.*
