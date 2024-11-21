@@ -1,5 +1,5 @@
-# Ryan Eaton's Advent of Code 2023
-A repository to store my solutions for [Advent of Code](https://adventofcode.com/).
+# Advent of Code Solutions
+A repository to store my ([Ryan Eaton](https://www.linkedin.com/in/ryan-l-eaton/)) solutions for [Advent of Code](https://adventofcode.com/).
 
 ## Years
  - (previous years coming soon!)
