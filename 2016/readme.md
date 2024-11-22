@@ -28,5 +28,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 5: How About a Nice Game of Chess?](notes/5.md) | 5:44    | 4:21   | 10:05   | 🤬🟰0️⃣0️⃣0️⃣0️⃣0️⃣      |
 | [Day 6: Signals and Noise](notes/6.md)               | 3:57    | 0:30   | 4:27    | 🎅📡📶❌❓🔤✅⭐🎄 |
 | [Day 7: Internet Protocol Version 7](notes/7.md)     | 9:38:12 | 20:53  | 9:59:05 | 💻🌐🔢🔒✅🔓    |
+| [Day 8: Two-Factor Authentication](notes/8.md)       | 13:48   | 1:05   | 14:53   | 🚪➡️💳➡️💻➡️🔢➡️🔓 |
 
 > Referenced other solutions for: 7
