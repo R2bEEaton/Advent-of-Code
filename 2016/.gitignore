@@ -1,0 +1,5 @@
+/.idea
+/code/helpers/sess
+/code/aoc.txt
+/code/testdata1.txt
+**/__pycache__/
