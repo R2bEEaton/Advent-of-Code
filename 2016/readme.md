@@ -30,5 +30,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 7: Internet Protocol Version 7](notes/7.md)     | 9:38:12 | 20:53   | 9:59:05 | 💻🌐🔢🔒✅🔓      |
 | [Day 8: Two-Factor Authentication](notes/8.md)       | 13:48   | 1:05    | 14:53   | 🚪➡️💳➡️💻➡️🔢➡️🔓   |
 | [Day 9: Explosives in Cyberspace](notes/9.md)        | 12:34   | 1:07:06 | 1:19:40 | 🅰️🅱️✖️2️⃣🟰🅰️🅱️🅰️🅱️ |
+| [Day 10: Balance Bots](notes/10.md)                  | 21:27   | 1:26    | 22:53   | 🤖🏭➡️🔢➡️🤖➡️🗑️❓🤖 |
 
 > Referenced other solutions for: 7
