@@ -32,5 +32,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 9: Explosives in Cyberspace](notes/9.md)                 | 12:34   | 1:07:06 | 1:19:40 | 🅰️🅱️✖️2️⃣🟰🅰️🅱️🅰️🅱️ |
 | [Day 10: Balance Bots](notes/10.md)                           | 21:27   | 1:26    | 22:53   | 🤖🏭➡️🔢➡️🤖➡️🗑️❓🤖 |
 | [Day 11: Radioisotope Thermoelectric Generators](notes/11.md) | 1:30:20 | 16:38   | 1:46:58 | ☢️⬆️🏢⛔☢️🤖🔌🚫🤯   |
+| [Day 12: Leonardo's Monorail](notes/12.md)                    | 17:46   | 0:44    | 18:30   | 💻🔓⬆️🚂⛔🔑❓🔢✅   |
 
 > Referenced other solutions for: 7
