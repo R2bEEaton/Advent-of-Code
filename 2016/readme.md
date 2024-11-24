@@ -37,5 +37,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 13: A Maze of Twisty Little Cubicles](notes/13.md)       | 7:02    | 5:47    | 12:49   | 🏢➡️🔢➡️🧱➡️🧑‍💼➡️➡️🎯   |
 | [Day 14: One-Time Pad](notes/14.md)                           | 8:50    | 7:59    | 16:49   | 🔑➡️🧂➡️🔢➡️🔽➡️🔑➡️✅   |
 | [Day 15: Timing is Everything](notes/15.md)                   | 5:38    | 0:33    | 6:11    | 🎉🤖🧩🌟⏳⌛️⬇️🕳️⭕️🌀🔢 |
+| [Day 16: Dragon Checksum](notes/16.md)                        | 19:11   | 36:51   | 56:02   | 🐉💾🔢🔁🔄🔀🔁🔢🧮 |
 
-> Referenced other solutions for: 7
+> Referenced other solutions for: 7, 16
