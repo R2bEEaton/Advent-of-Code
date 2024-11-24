@@ -38,5 +38,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 14: One-Time Pad](notes/14.md)                           | 8:50    | 7:59    | 16:49   | 🔑➡️🧂➡️🔢➡️🔽➡️🔑➡️✅   |
 | [Day 15: Timing is Everything](notes/15.md)                   | 5:38    | 0:33    | 6:11    | 🎉🤖🧩🌟⏳⌛️⬇️🕳️⭕️🌀🔢 |
 | [Day 16: Dragon Checksum](notes/16.md)                        | 19:11   | 36:51   | 56:02   | 🐉💾🔢🔁🔄🔀🔁🔢🧮 |
+| [Day 17: Two Steps Forward](notes/17.md)                      | 15:13   | 6:17    | 21:30   | 🚪🔑🔍👣🛤️🏁🏆     |
 
 > Referenced other solutions for: 7, 16
