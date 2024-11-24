@@ -34,5 +34,7 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 11: Radioisotope Thermoelectric Generators](notes/11.md) | 1:30:20 | 16:38   | 1:46:58 | ☢️⬆️🏢⛔☢️🤖🔌🚫🤯   |
 | [Day 12: Leonardo's Monorail](notes/12.md)                    | 17:46   | 0:44    | 18:30   | 💻🔓⬆️🚂⛔🔑❓🔢✅   |
 | [Day 13: A Maze of Twisty Little Cubicles](notes/13.md)       | 7:02    | 5:47    | 12:49   | 🏢➡️🔢➡️🧱➡️🧑‍💼➡️➡️🎯 |
+| [Day 13: A Maze of Twisty Little Cubicles](notes/13.md)       | 7:02    | 5:47    | 12:49   | 🏢➡️🔢➡️🧱➡️🧑‍💼➡️➡️🎯 |
+| [Day 14: One-Time Pad](notes/14.md)                           | 8:50    | 7:59    | 16:49   | 🔑➡️🧂➡️🔢➡️🔽➡️🔑➡️✅ |
 
 > Referenced other solutions for: 7
