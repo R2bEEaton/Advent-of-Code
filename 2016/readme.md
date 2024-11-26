@@ -40,5 +40,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 16: Dragon Checksum](notes/16.md)                        | 19:11   | 36:51   | 56:02   | 🐉💾🔢🔁🔄🔀🔁🔢🧮 |
 | [Day 17: Two Steps Forward](notes/17.md)                      | 15:13   | 6:17    | 21:30   | 🚪🔑🔍👣🛤️🏁🏆     |
 | [Day 18: Like a Rogue](notes/18.md)                           | 9:08    | 0:31    | 9:39    | 🔢➡️🔢➡️🔢🧮✅        |
+| [Day 19: An Elephant Named Joseph](notes/19.md)                           | 48:53  | 2:51:53 | 3:40:46 | 🎁➡️🎁➡️🎁🔄❓🏆        |
 
-> Referenced other solutions for: 7, 16
+> Referenced other solutions / hints for: 7, 16, 19
