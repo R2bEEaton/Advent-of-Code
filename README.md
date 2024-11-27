@@ -7,7 +7,7 @@ A repository to store my ([Ryan Eaton](https://www.linkedin.com/in/ryan-l-eaton/
 | Year                   | Stars         | Annotated          |
 |------------------------|---------------|--------------------|
 | [2015](2015/readme.md) | **50 :tada:** | :x:                |
-| [2016](2016/readme.md) | 38            | :white_check_mark: |
+| [2016](2016/readme.md) | 40            | :white_check_mark: |
 | 2017 (coming soon!)    | ~             | :x:                |
 | 2018 (coming soon!)    | ~             | :x:                |
 | [2019](2019/readme.md) | 27            | :x:                |
