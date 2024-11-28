@@ -4,4 +4,5 @@
         "source.fixAll.markdownlint": "explicit",
         "source.fixAll.markdown": "explicit"
     },
+    "python.analysis.autoImportCompletions": true,
 }

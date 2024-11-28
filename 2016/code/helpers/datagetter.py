@@ -1,6 +1,5 @@
 import keyboard
 import re
-from collections import defaultdict
 
 
 def aocd_data_in(split=True, numbers=False, n_type=int):
@@ -22,10 +21,10 @@ def aocd_data_in(split=True, numbers=False, n_type=int):
 
     # Parse
     if split:
-        data = data.split("\n")
+        data = data.splitlines()
     if numbers:
         out = []
-        for line in (data if type(data) == list else data.split("\n")):
+        for line in (data if type(data) == list else data.splitlines()):
             out.append(get_numbers(line, n_type))
         data = out
 
