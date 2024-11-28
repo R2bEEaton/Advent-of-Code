@@ -34,6 +34,7 @@ def aocd_data_in(split=True, numbers=False, n_type=int):
 
 
 def submit(ans):
+    print("Submitting:", ans)
     import aocd
     with open("helpers/sess") as f:
         sess = f.readline()
@@ -42,7 +43,7 @@ def submit(ans):
 
 
 def dummy_submit(a):
-    print(a)
+    print("Answer:", a)
     print("Answer printed, not submitted.")
 
 
