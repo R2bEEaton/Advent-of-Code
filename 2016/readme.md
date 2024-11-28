@@ -44,5 +44,6 @@ This is pretty much a table of contents for my solutions and a corresponding emo
 | [Day 21: Scrambled Letters and Hash](notes/21.md)             | 31:35   | 24:16   | 55:51   | 🤔🧩🔀🔄🔁🔤🔀🔄🔁🤔 |
 | [Day 22: Grid Computing](notes/22.md)                         | 8:51    | 37:27   | 46:18   | 🖥️💾➡️📂🧩🔀📁        |
 | [Day 23: Safe Cracking](notes/23.md)                          | 15:32   | 25:30   | 41:02   | 🎉🥚🐰⚙️💻🔢🌟        |
+| [Day 24: Air Duct Spelunking](notes/24.md)                    | 57:58   | 0:35    | 58:33   | 🤖🗺️🧩🕵️‍♀️💨🏁         |
 
 > Referenced other solutions / hints for: 7, 16, 19, 22
