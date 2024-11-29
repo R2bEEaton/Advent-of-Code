@@ -23,6 +23,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 |------------------------------------------|--------|--------|-------|----------|
 | [Day 1: Inverse Captcha](notes/1.md)     | 2:08   | 1:33   | 3:41  | 149      |
 | [Day 2: Corruption Checksum](notes/2.md) | 0:38   | 1:52   | 2:30  | 190      |
+| [Day 3: Spiral Memory](notes/3.md)       | 16:40  | 25:42  | 42:22 | 0        |
 
 > Referenced other solutions / hints for: ...
 >
