@@ -19,9 +19,10 @@ I'm going for speed. This repository is not an example of good code. It won't be
 
 This is pretty much a table of contents for my solution times and equivalent points.
 
-| Title                                | Part 1 | Part 2 | Total | Points\* |
-|--------------------------------------|--------|--------|-------|----------|
-| [Day 1: Inverse Captcha](notes/1.md) | 2:08   | 1:33   | 3:41  | 149      |
+| Title                                    | Part 1 | Part 2 | Total | Points\* |
+|------------------------------------------|--------|--------|-------|----------|
+| [Day 1: Inverse Captcha](notes/1.md)     | 2:08   | 1:33   | 3:41  | 149      |
+| [Day 2: Corruption Checksum](notes/2.md) | 0:38   | 1:52   | 2:30  | 190      |
 
 > Referenced other solutions / hints for: ...
 >
