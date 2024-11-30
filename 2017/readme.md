@@ -19,11 +19,12 @@ I'm going for speed. This repository is not an example of good code. It won't be
 
 This is pretty much a table of contents for my solution times and equivalent points.
 
-| Title                                    | Part 1 | Part 2 | Total | Points\* |
-|------------------------------------------|--------|--------|-------|----------|
-| [Day 1: Inverse Captcha](notes/1.md)     | 2:08   | 1:33   | 3:41  | 149      |
-| [Day 2: Corruption Checksum](notes/2.md) | 0:38   | 1:52   | 2:30  | 190      |
-| [Day 3: Spiral Memory](notes/3.md)       | 16:40  | 25:42  | 42:22 | 0        |
+| Title                                         | Part 1 | Part 2 | Total | Points\* |
+|-----------------------------------------------|--------|--------|-------|----------|
+| [Day 1: Inverse Captcha](notes/1.md)          | 2:08   | 1:33   | 3:41  | 149      |
+| [Day 2: Corruption Checksum](notes/2.md)      | 0:38   | 1:52   | 2:30  | 190      |
+| [Day 3: Spiral Memory](notes/3.md)            | 16:40  | 25:42  | 42:22 | 0        |
+| [Day 4: High-Entropy Passphrases](notes/4.md) | 1:20   | 1:05   | 2:25  | 118      |
 
 > Referenced other solutions / hints for: ...
 >

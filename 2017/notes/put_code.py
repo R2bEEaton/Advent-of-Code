@@ -45,6 +45,7 @@ brief note
 |      | Part 1 | Part 2 | Total |
 |------|--------|--------|-------|
 | Time | %s | %s | %s |
+| Points |   |   |   |
 
 ## Part 1
 brief notes
