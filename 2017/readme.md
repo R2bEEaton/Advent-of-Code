@@ -26,6 +26,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 3: Spiral Memory](notes/3.md)                           | 16:40  | 25:42  | 42:22 | 0        |
 | [Day 4: High-Entropy Passphrases](notes/4.md)                | 1:20   | 1:05   | 2:25  | 118      |
 | [Day 5: A Maze of Twisty Trampolines, All Alike](notes/5.md) | 3:31   | 0:44   | 4:15  | 38       |
+| [Day 6: Memory Reallocation](notes/6.md)                     | 7:27   | 0:47   | 8:14  | 44       |
 
 > Referenced other solutions / hints for: ...
 >
