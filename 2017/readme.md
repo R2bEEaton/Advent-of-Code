@@ -27,6 +27,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 4: High-Entropy Passphrases](notes/4.md)                | 1:20   | 1:05   | 2:25  | 118      |
 | [Day 5: A Maze of Twisty Trampolines, All Alike](notes/5.md) | 3:31   | 0:44   | 4:15  | 38       |
 | [Day 6: Memory Reallocation](notes/6.md)                     | 7:27   | 0:47   | 8:14  | 44       |
+| [Day 7: Recursive Circus](notes/7.md)                        | 4:45   | 11:36  | 16:21 | 101      |
 
 > Referenced other solutions / hints for: ...
 >
