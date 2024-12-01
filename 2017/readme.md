@@ -15,7 +15,7 @@ Solutions will be slightly refactored for readability before submission. In othe
 
 I'm going for speed. This repository is not an example of good code. It won't be pretty.
 
-## Earnings and Emojis
+## Times and Points
 
 This is pretty much a table of contents for my solution times and equivalent points.
 
