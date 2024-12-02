@@ -22,5 +22,6 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | Title                                   | Part 1 | Part 2 | Total | Points |
 |-----------------------------------------|--------|--------|-------|--------|
 | [Day 1: Historian Hysteria](notes/1.md) | 1:07   | 0:24   | 1:31  | 147    |
+| [Day 2: Red-Nosed Reports](notes/2.md)  | 7:47   | 1:40   | 9:27  | 0      |
 
 > Referenced other solutions / hints for: ...
