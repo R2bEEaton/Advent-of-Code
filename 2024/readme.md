@@ -23,5 +23,6 @@ This is pretty much a table of contents for my solution times and equivalent poi
 |-----------------------------------------|--------|--------|-------|--------|
 | [Day 1: Historian Hysteria](notes/1.md) | 1:07   | 0:24   | 1:31  | 147    |
 | [Day 2: Red-Nosed Reports](notes/2.md)  | 7:47   | 1:40   | 9:27  | 0      |
+| [Day 3: Mull It Over](notes/3.md)       | 3:05   | 5:20   | 8:25  | 0      |
 
 > Referenced other solutions / hints for: ...
