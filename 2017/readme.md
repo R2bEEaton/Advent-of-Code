@@ -30,6 +30,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 7: Recursive Circus](notes/7.md)                        | 4:45   | 11:36  | 16:21 | 101      |
 | [Day 8: I Heard You Like Registers](notes/8.md)              | 6:44   | 0:07   | 7:21  | 55       |
 | [Day 9: Stream Processing](notes/9.md)                       | 7:33   | 3:45   | 11:18 | 60       |
+| [Day 10: Knot Hash](notes/10.md)                             | 10:34  | 7:23   | 17:57 | 106      |
 
 > Referenced other solutions / hints for: ...
 >
