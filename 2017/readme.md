@@ -31,6 +31,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 8: I Heard You Like Registers](notes/8.md)              | 6:44   | 0:07   | 7:21  | 55       |
 | [Day 9: Stream Processing](notes/9.md)                       | 7:33   | 3:45   | 11:18 | 60       |
 | [Day 10: Knot Hash](notes/10.md)                             | 10:34  | 7:23   | 17:57 | 106      |
+| [Day 11: Hex Ed](notes/11.md)                                | 9:20   | 0:22   | 9:42  | 40       |
 
 > Referenced other solutions / hints for: ...
 >
