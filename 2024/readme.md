@@ -25,7 +25,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 2: Red-Nosed Reports](notes/2.md)  | 7:47   | 1:40    | 9:27    |
 | [Day 3: Mull It Over](notes/3.md)       | 3:05   | 5:20    | 8:25    |
 | [Day 4: Ceres Search](notes/4.md)       | 3:29   | 10:01   | 13:30   |
-| [Day 5: Print Queue](notes/5.md)        | 08:24  | 1:32:41 | 1:41:05 |
+| [Day 5: Print Queue](notes/5.md)        | 8:24   | 1:32:41 | 1:41:05 |
 
 > Referenced other solutions / hints for: ...
 >
