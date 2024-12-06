@@ -14,7 +14,6 @@ for file in os.listdir("../code"):
 
     r = requests.get("https://adventofcode.com/2024/leaderboard/private/view/144198.json", cookies={'session': open("../code/helpers/sess", "r").read()})
     r = json.loads(r.text)
-    print(r)
 
     parta, delta, partb = "0:00", "0:00", "0:00"
 
