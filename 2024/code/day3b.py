@@ -2,6 +2,7 @@ from helpers.datagetter import aocd_data_in
 import re
 
 din, aocd_submit = aocd_data_in(split=False, numbers=False)
+din += "don't()"
 ans = 0
 
 i = 0
