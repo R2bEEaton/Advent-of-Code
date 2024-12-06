@@ -35,7 +35,7 @@ for file in os.listdir("../code"):
             except:
                 None
 
-    with open("%s.md" % fname, "w+") as f:
+    with open("%s.md" % fname, "w+", encoding="UTF-8") as f:
         f.write("""# Day %s - NAME OF PUZZLE
                 
 > [<- Yesterday](%s.md) | [Tomorrow ->](%s.md)
