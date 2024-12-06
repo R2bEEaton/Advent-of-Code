@@ -14,6 +14,7 @@ for file in os.listdir("../code"):
 
     r = requests.get("https://adventofcode.com/2024/leaderboard/private/view/144198.json", cookies={'session': open("../code/helpers/sess", "r").read()})
     r = json.loads(r.text)
+    print(r)
 
     parta, delta, partb = "0:00", "0:00", "0:00"
 
@@ -44,8 +45,8 @@ brief note
 
 |      | Part 1 | Part 2 | Total |
 |------|--------|--------|-------|
-| Time | %s | %s | %s |
-| Points |   |   |   |
+| Time | %s | %s | Σ = %s |
+| Rank |   |   | μ =  |
 
 ## Part 1
 brief notes

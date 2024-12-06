@@ -19,14 +19,16 @@ I'm going for speed. This repository is not an example of good code. It won't be
 
 This is pretty much a table of contents for my solution times and equivalent points.
 
-| Title                                   | Part 1 | Part 2  | Total   |
-|-----------------------------------------|--------|---------|---------|
-| [Day 1: Historian Hysteria](notes/1.md) | 1:07   | 0:24    | 1:31    |
-| [Day 2: Red-Nosed Reports](notes/2.md)  | 7:47   | 1:40    | 9:27    |
-| [Day 3: Mull It Over](notes/3.md)       | 3:05   | 5:20    | 8:25    |
-| [Day 4: Ceres Search](notes/4.md)       | 3:29   | 10:01   | 13:30   |
-| [Day 5: Print Queue](notes/5.md)        | 8:24   | 1:32:41 | 1:41:05 |
+| Title                                   | Part 1 | Part 2  | Total   | Avg Rank\* |
+|-----------------------------------------|--------|---------|---------|----------|
+| [Day 1: Historian Hysteria](notes/1.md) | 1:07   | 0:24    | 1:31    | 28       |
+| [Day 2: Red-Nosed Reports](notes/2.md)  | 7:47   | 1:40    | 9:27    | 1130     |
+| [Day 3: Mull It Over](notes/3.md)       | 3:05   | 5:20    | 8:25    | 605      |
+| [Day 4: Ceres Search](notes/4.md)       | 3:29   | 10:01   | 13:30   | 539      |
+| [Day 5: Print Queue](notes/5.md)        | 8:24   | 1:32:41 | 1:41:05 | 5718     |
 
 > Referenced other solutions / hints for: ...
 >
 > Points column conspicuously removed 2024-12-05
+>
+> \* Avg Rank = ceil((Part 1 + Part 2) / 2)
