@@ -27,6 +27,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 4: Ceres Search](notes/4.md)       | 3:29   | 10:01   | 13:30   | 539        |
 | [Day 5: Print Queue](notes/5.md)        | 8:24   | 1:32:41 | 1:41:05 | 5718       |
 | [Day 6: Guard Gallivant](notes/6.md)    | 11:54  | 15:37   | 27:31   | 1479       |
+| [Day 7: Bridge Repair](notes/7.md)      | 7:39   | 31:42   | 39:21   | 2894       |
 
 > Referenced other solutions / hints for: ...
 >
