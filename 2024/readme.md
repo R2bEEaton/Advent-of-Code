@@ -29,6 +29,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 6: Guard Gallivant](notes/6.md)       | 11:54  | 15:37   | 27:31   | 1479       |
 | [Day 7: Bridge Repair](notes/7.md)         | 7:39   | 31:42   | 39:21   | 2894       |
 | [Day 8: Resonant Collinearity](notes/8.md) | 9:15   | 2:16    | 11:31   | 325        |
+| [Day 9: Disk Fragmenter](notes/9.md)       | 12:08  | 11:28   | 23:36   | 512        |
 
 > Referenced other solutions / hints for: ...
 >
