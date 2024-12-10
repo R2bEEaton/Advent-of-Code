@@ -94,7 +94,7 @@ class Matrix:
         out = []
         for k, v in self:
             if val == v:
-                out.append(k)
+                out.append(k.copy())
         return out
 
     def _is_in_bounds(self, pos):
@@ -157,7 +157,7 @@ class Matrix:
                     pos[i] += 1
                 else:
                     break
-            yield tuple(pos), self.get(pos)
+        yield pos, self.get(pos)
 
     def __setitem__(self, key, value):
         """
@@ -200,7 +200,7 @@ class Matrix:
                         yield got, [pos[0] + i, pos[1] + j]
 
 
-def from_grid(din, data_type=str):
+def from_grid(din):
     """
     Create a Matrix from a 2D grid.
 
@@ -214,5 +214,5 @@ def from_grid(din, data_type=str):
     M = Matrix((len(din), len(din[0])))
     for y in range(len(din)):
         for x in range(len(din[0])):
-            M.set((y, x), data_type(din[y][x]))
+            M.set((y, x), din[y][x])
     return M
