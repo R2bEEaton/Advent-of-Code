@@ -1,4 +1,5 @@
 from collections import defaultdict
+from itertools import product
 
 DIRS_URDL = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 DIRS_DIAG = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
@@ -147,7 +148,7 @@ class Matrix:
         """
         pos = [0 for _ in self.size]
         while pos != [x - 1 for x in self.size]:
-            yield pos, self.get(pos)
+            yield tuple(pos), self.get(pos)
             i = -1
             pos[i] += 1
             while True:
@@ -157,7 +158,6 @@ class Matrix:
                     pos[i] += 1
                 else:
                     break
-            yield tuple(pos), self.get(pos)
 
     def __setitem__(self, key, value):
         """
@@ -190,14 +190,20 @@ class Matrix:
             diag (bool): Whether to include diagonal neighbors (default: False).
 
         Yields:
-            tuple: A tuple containing the neighbor value and position.
+            tuple: A tuple containing the neighbor position and value.
+        
+        2024-12-11: I made a breaking change, pos is now a tuple, and the order of outputs is reversed 
         """
-        for i in range(-1, 2):
-            for j in range(-1, 2):
-                if (not diag and abs(i + j) == 1) or (diag and not (i == 0 and j == 0)):
-                    got = self.get([pos[0] + i, pos[1] + j])
-                    if got is not None:
-                        yield got, [pos[0] + i, pos[1] + j]
+        deltas = product([-1, 0, 1], repeat=len(self.size))
+        for delta in deltas:
+            if not diag and sum(abs(d) for d in delta) != 1:
+                continue
+            if diag and all(d == 0 for d in delta):
+                continue
+
+            neighbor_pos = tuple(p + d for p, d in zip(pos, delta))
+            yield neighbor_pos, self.get(neighbor_pos)
+
 
 
 def from_grid(din, data_type=str):
