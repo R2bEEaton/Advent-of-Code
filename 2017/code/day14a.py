@@ -1,5 +1,4 @@
 from helpers.datagetter import aocd_data_in
-import re
 from collections import deque
 
 din, aocd_submit = aocd_data_in(split=False, numbers=False)
