@@ -32,6 +32,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 9: Stream Processing](notes/9.md)                       | 7:33   | 3:45   | 11:18 | 60       |
 | [Day 10: Knot Hash](notes/10.md)                             | 10:34  | 7:23   | 17:57 | 106      |
 | [Day 11: Hex Ed](notes/11.md)                                | 9:20   | 0:22   | 9:42  | 40       |
+| [Day 12: Digital Plumber](notes/12.md)                       | 3:02   | 0:26   | 3:28  | 175      |
 
 > Referenced other solutions / hints for: ...
 >
