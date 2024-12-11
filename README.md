@@ -8,7 +8,7 @@ A repository to store my ([Ryan Eaton](https://www.linkedin.com/in/ryan-l-eaton/
 |------------------------|---------------------------|--------------------|
 | [2015](2015/readme.md) | **50 :tada:**             | :x:                |
 | [2016](2016/readme.md) | **50 :tada:**             | :white_check_mark: |
-| [2017](2017/readme.md) | 22                        | :white_check_mark: |
+| [2017](2017/readme.md) | 26                        | :white_check_mark: |
 | 2018 (coming soon!)    | ~                         | :x:                |
 | [2019](2019/readme.md) | 27                        | :x:                |
 | [2020](2020/readme.md) | 23                        | :x:                |
