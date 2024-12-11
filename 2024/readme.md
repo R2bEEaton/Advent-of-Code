@@ -31,6 +31,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 8: Resonant Collinearity](notes/8.md) | 9:15   | 2:16    | 11:31   | 325        |
 | [Day 9: Disk Fragmenter](notes/9.md)       | 12:08  | 11:28   | 23:36   | 512        |
 | [Day 10: Hoof It](notes/10.md)             | 11:25  | 0:34    | 11:59   | 1070       |
+| [Day 11: Plutonian Pebbles](notes/11.md)   | 7:13   | 7:17    | 14:30   | 1018       |
 
 > Referenced other solutions / hints for: ...
 >

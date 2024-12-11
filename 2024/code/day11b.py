@@ -7,6 +7,9 @@ din = din[0]
 stones = din
 ans = 0
 
+seen = {}
+
+
 @cache
 def get_nums(stone, depth):
     if depth == 0:
@@ -25,6 +28,7 @@ def get_nums(stone, depth):
     
     for new_stone in new_stones:
         tot += get_nums(new_stone, depth-1)
+
     return tot
     
 
