@@ -148,7 +148,6 @@ class Matrix:
         """
         pos = [0 for _ in self.size]
         while pos != [x - 1 for x in self.size]:
-            yield tuple(pos), self.get(pos)
             i = -1
             pos[i] += 1
             while True:
@@ -158,6 +157,7 @@ class Matrix:
                     pos[i] += 1
                 else:
                     break
+            yield tuple(pos), self.get(pos)
 
     def __setitem__(self, key, value):
         """
