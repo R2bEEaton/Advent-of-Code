@@ -147,6 +147,7 @@ class Matrix:
             tuple: A tuple containing the position and value.
         """
         pos = [0 for _ in self.size]
+        yield tuple(pos), self.get(pos)
         while pos != [x - 1 for x in self.size]:
             i = -1
             pos[i] += 1
