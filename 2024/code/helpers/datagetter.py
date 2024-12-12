@@ -1,5 +1,8 @@
 import keyboard
 import re
+import time
+
+start_time = None
 
 
 def aocd_data_in(split=True, numbers=False, n_type=int):
@@ -19,6 +22,10 @@ def aocd_data_in(split=True, numbers=False, n_type=int):
         with open("aoc.txt", "w+") as f:
             f.write(data)
 
+    # Keep track of start time
+    global start_time
+    start_time = time.perf_counter()
+
     # Parse
     if split:
         data = data.splitlines()
@@ -29,11 +36,13 @@ def aocd_data_in(split=True, numbers=False, n_type=int):
         data = out
 
     print("| %s Data loaded.  |\n|====================|" % data_ver)
+
     return data, submit if data_ver == "Real" else dummy_submit
 
 
 def submit(ans):
-    print("Submitting:", ans)
+    print("Answer:", ans, "\tTime:", time.perf_counter() - start_time)
+    print("Submitting...")
     import aocd
     with open("helpers/sess") as f:
         sess = f.readline()
@@ -41,8 +50,8 @@ def submit(ans):
     aocd.submit(answer=ans, session=sess, day=dy[0], year=dy[1])
 
 
-def dummy_submit(a):
-    print("Answer:", a)
+def dummy_submit(ans):
+    print("Answer:", ans, "\tTime:", time.perf_counter() - start_time)
     print("Answer printed, not submitted.")
 
 
