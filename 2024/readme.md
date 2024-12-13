@@ -23,7 +23,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 |--------------------------------------------|--------|---------|---------|------------|
 | [Day 1: Historian Hysteria](notes/1.md)    | 1:07   | 0:24    | 1:31    | 28         |
 | [Day 2: Red-Nosed Reports](notes/2.md)     | 7:47   | 1:40    | 9:27    | 1130       |
-| [Day 3: Mull It Over](notes/3.md)          | 3:05   | 5:20    | 8:25    | 605        |
+| [Day 3: Mull It Over](notes/3.md)          | 3:05   | 5:20    | 8:25    | 653        |
 | [Day 4: Ceres Search](notes/4.md)          | 3:29   | 10:01   | 13:30   | 539        |
 | [Day 5: Print Queue](notes/5.md)           | 8:24   | 1:32:41 | 1:41:05 | 5718       |
 | [Day 6: Guard Gallivant](notes/6.md)       | 11:54  | 15:37   | 27:31   | 1479       |
