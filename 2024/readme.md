@@ -34,6 +34,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 11: Plutonian Pebbles](notes/11.md)   | 7:13   | 7:17    | 14:30   | 1018       |
 | [Day 12: Garden Groups](notes/12.md)       | 16:40  | 9:34:36 | 9:51:16 | 7823       |
 | [Day 13: Claw Contraption](notes/13.md)    | 13:28  | 2:10    | 15:38   | 644        |
+| [Day 14: Restroom Redoubt](notes/14.md)    | 11:30  | 13:19   | 24:49   | 587        |
 
 > Referenced other solutions / hints for: ...
 >
