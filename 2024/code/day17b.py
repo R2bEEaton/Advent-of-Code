@@ -1,7 +1,4 @@
-import numpy as np
 from helpers.datagetter import aocd_data_in
-from collections import defaultdict
-import pygad
 
 din, aocd_submit = aocd_data_in(split=True, numbers=True)
 
@@ -40,7 +37,7 @@ def checkA(A_val):
         elif opcode == 4:
             regs["B"] ^= regs["C"]
         elif opcode == 5:
-            output.append(operand_combo % 8)
+            return operand_combo % 8
         elif opcode == 6:
             regs["B"] = regs["A"] // (2 ** operand_combo)
         elif opcode == 7:
@@ -48,56 +45,18 @@ def checkA(A_val):
 
         IP += 2
 
-    return output
-
-initial_population = []
-
-for j in range(16):
-    for i in range(8):
-        a = '111' * (j) + bin(i)[2:].zfill(3) + '111' * (15-j)
-        print(len(a))
-        initial_population.append([int(x) for x in a])
-
-print(print(initial_population))
-
-def fitness_func(ga_instance, solution, solution_idx):
-    init = to_bin(solution)
-    if not (35184372088832 < init < 108951210856193):
-        return 0
-    out = checkA(init)
-    fitness = (sum([out[i] == program[i] for i in range(min(len(out), len(program)))])) / len(program)
-    return fitness
+    return
 
 
-def on_gen(ga_instance):
-    print("Generation : ", ga_instance.generations_completed, "Fitness of the best solution :", ga_instance.best_solution()[1])
+population = [0]
+for tri in range(len(program)):
+    print(population)
+    new_population = []
+    for pop in population:
+        for i in range(8):
+            A = pop * 8 + i
+            if checkA(A) == program[len(program)-1-tri]:
+                new_population.append(A)
+    population = new_population
 
-
-# for i in range(2 ** 20):
-#     a = int(bin(i)[2:].zfill(20) + '1110001110001000111100000001', base=2)
-#     a = 108951210856193
-#     if checkA(a) == program:
-#         print(a, "yipee")
-#         print(checkA(a), program)
-
-
-
-while True:
-    ga_instance = pygad.GA(num_generations=10000,
-                        num_parents_mating=16,
-                        fitness_func=fitness_func,
-                        initial_population=initial_population,
-                        gene_type=int,
-                        gene_space=[0, 1],
-                        # on_generation=on_gen,
-                        stop_criteria="reach_1",
-                        crossover_type="uniform"
-                        )
-
-    ga_instance.run()
-    A_val = ga_instance.best_solution()[0]
-    A_val = to_bin(A_val)
-    if (checkA(A_val) == program):
-        aocd_submit(A_val)
-
-# ga_instance.plot_fitness()
+aocd_submit(min(population))
