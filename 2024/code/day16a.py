@@ -1,8 +1,6 @@
-from collections import deque
-import heapq
 from helpers.matrix import DIRS_URDL, from_grid
 from helpers.datagetter import aocd_data_in
-from astar import AStar
+import heapq
 
 
 din, aocd_submit = aocd_data_in(split=False, numbers=False)

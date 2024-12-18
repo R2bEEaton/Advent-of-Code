@@ -44,7 +44,6 @@ def checkA(A_val):
             regs["C"] = regs["A"] // (2 ** operand_combo)
 
         IP += 2
-
     return
 
 
