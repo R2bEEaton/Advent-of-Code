@@ -38,6 +38,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 15: Warehouse Woes](notes/15.md)         | 17:23  | 1:30:23  | 1:47:46  | 1654       |
 | [Day 16: Reindeer Maze](notes/16.md)          | 18:44  | 1:06:11  | 1:24:55  | 1837       |
 | [Day 17: Chronospatial Computer](notes/17.md) | 12:25  | 11:05:56 | 11:18:21 | 4639       |
+| [Day 18: RAM Run](notes/18.md)                | 17:05  | 8:55     | 26:00    | 1893       |
 
 > Referenced other solutions / hints for: ...
 >

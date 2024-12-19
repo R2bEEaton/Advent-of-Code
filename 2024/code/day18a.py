@@ -38,6 +38,4 @@ while q:
             continue
         heapq.heappush(q, (cost + 1, (*nei, t + 1)))
 
-print(best_cost)
 aocd_submit(best_cost)
-
