@@ -7,13 +7,12 @@ import tqdm
 din, aocd_submit = aocd_data_in(split=False, numbers=False)
 
 M = from_grid(din)
-
 best = len(M.findall(".")) + 1
 
 seen = set()
-
 pos = M.findall("S")[0]
 cost = 0
+
 while M.get(pos) != "E":
     M.set(pos, cost)
     seen.add(pos)
