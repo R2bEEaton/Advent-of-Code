@@ -42,6 +42,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 19: Linen Layout](notes/19.md)           | 7:22    | 23:19    | 30:41    | 1614       |
 | [Day 20: Race Condition](notes/20.md)         | 25:27   | 13:03    | 38:30    | 888        |
 | [Day 21: Keypad Conundrum](notes/21.md)       | 1:31:41 | 9:31:33  | 11:03:14 | 2754       |
+| [Day 22: Monkey Market](notes/22.md)          | 6:42    | 19:25    | 26:07    | 654        |
 
 > Referenced other solutions / hints for: ...
 >
