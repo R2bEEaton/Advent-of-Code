@@ -1,5 +1,4 @@
 from collections import defaultdict
-from email.policy import default
 from helpers.datagetter import aocd_data_in
 
 din, aocd_submit = aocd_data_in(split=True, numbers=True)
