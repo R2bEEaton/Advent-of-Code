@@ -1,0 +1,1531 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+                <link href="lib/tom-select/tom-select.css" rel="stylesheet">
+                <script src="lib/tom-select/tom-select.complete.min.js"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 600px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="x36">x36</option>
+                                
+                                    <option value="x36_y36_XOR">x36_y36_XOR</option>
+                                
+                                    <option value="y36_x36_AND">y36_x36_AND</option>
+                                
+                                    <option value="sfj">sfj</option>
+                                
+                                    <option value="y36">y36</option>
+                                
+                                    <option value="sfj_fjm_XOR">sfj_fjm_XOR</option>
+                                
+                                    <option value="sfj_fjm_AND">sfj_fjm_AND</option>
+                                
+                                    <option value="mpq">mpq</option>
+                                
+                                    <option value="mpq_dvh_AND">mpq_dvh_AND</option>
+                                
+                                    <option value="dvh_mpq_XOR">dvh_mpq_XOR</option>
+                                
+                                    <option value="qgg">qgg</option>
+                                
+                                    <option value="dvh">dvh</option>
+                                
+                                    <option value="qgg_vds_OR">qgg_vds_OR</option>
+                                
+                                    <option value="z36">z36</option>
+                                
+                                    <option value="fjm">fjm</option>
+                                
+                                    <option value="y10">y10</option>
+                                
+                                    <option value="y10_x10_AND">y10_x10_AND</option>
+                                
+                                    <option value="x10_y10_XOR">x10_y10_XOR</option>
+                                
+                                    <option value="pjt">pjt</option>
+                                
+                                    <option value="x10">x10</option>
+                                
+                                    <option value="spf_pjt_OR">spf_pjt_OR</option>
+                                
+                                    <option value="pds">pds</option>
+                                
+                                    <option value="pds_wsg_XOR">pds_wsg_XOR</option>
+                                
+                                    <option value="pds_wsg_AND">pds_wsg_AND</option>
+                                
+                                    <option value="z25">z25</option>
+                                
+                                    <option value="wsg">wsg</option>
+                                
+                                    <option value="wjm">wjm</option>
+                                
+                                    <option value="wjm_rhk_XOR">wjm_rhk_XOR</option>
+                                
+                                    <option value="wjm_rhk_AND">wjm_rhk_AND</option>
+                                
+                                    <option value="z33">z33</option>
+                                
+                                    <option value="rhk">rhk</option>
+                                
+                                    <option value="dvd">dvd</option>
+                                
+                                    <option value="dvd_kgf_OR">dvd_kgf_OR</option>
+                                
+                                    <option value="ckp">ckp</option>
+                                
+                                    <option value="kgf">kgf</option>
+                                
+                                    <option value="ckp_rds_AND">ckp_rds_AND</option>
+                                
+                                    <option value="rds_ckp_XOR">rds_ckp_XOR</option>
+                                
+                                    <option value="tgj">tgj</option>
+                                
+                                    <option value="tgj_mkm_XOR">tgj_mkm_XOR</option>
+                                
+                                    <option value="mkm_tgj_AND">mkm_tgj_AND</option>
+                                
+                                    <option value="bjm">bjm</option>
+                                
+                                    <option value="mkm">mkm</option>
+                                
+                                    <option value="btr_bjm_AND">btr_bjm_AND</option>
+                                
+                                    <option value="btr_bjm_XOR">btr_bjm_XOR</option>
+                                
+                                    <option value="x40">x40</option>
+                                
+                                    <option value="x40_y40_AND">x40_y40_AND</option>
+                                
+                                    <option value="y40_x40_XOR">y40_x40_XOR</option>
+                                
+                                    <option value="vkd">vkd</option>
+                                
+                                    <option value="y40">y40</option>
+                                
+                                    <option value="hfj_vkd_OR">hfj_vkd_OR</option>
+                                
+                                    <option value="x28">x28</option>
+                                
+                                    <option value="x28_y28_XOR">x28_y28_XOR</option>
+                                
+                                    <option value="y28_x28_AND">y28_x28_AND</option>
+                                
+                                    <option value="vvc">vvc</option>
+                                
+                                    <option value="y28">y28</option>
+                                
+                                    <option value="rwm_vvc_AND">rwm_vvc_AND</option>
+                                
+                                    <option value="vvc_rwm_XOR">vvc_rwm_XOR</option>
+                                
+                                    <option value="y22">y22</option>
+                                
+                                    <option value="y22_x22_AND">y22_x22_AND</option>
+                                
+                                    <option value="y22_x22_XOR">y22_x22_XOR</option>
+                                
+                                    <option value="tmq">tmq</option>
+                                
+                                    <option value="x22">x22</option>
+                                
+                                    <option value="tdg_tmq_OR">tdg_tmq_OR</option>
+                                
+                                    <option value="gdw">gdw</option>
+                                
+                                    <option value="gdw_tns_AND">gdw_tns_AND</option>
+                                
+                                    <option value="tns_gdw_XOR">tns_gdw_XOR</option>
+                                
+                                    <option value="tns">tns</option>
+                                
+                                    <option value="rwm">rwm</option>
+                                
+                                    <option value="cdj">cdj</option>
+                                
+                                    <option value="tvw_cdj_OR">tvw_cdj_OR</option>
+                                
+                                    <option value="mwg">mwg</option>
+                                
+                                    <option value="mwg_hmm_XOR">mwg_hmm_XOR</option>
+                                
+                                    <option value="mwg_hmm_AND">mwg_hmm_AND</option>
+                                
+                                    <option value="z34">z34</option>
+                                
+                                    <option value="hmm">hmm</option>
+                                
+                                    <option value="dtw">dtw</option>
+                                
+                                    <option value="dtw_tgb_AND">dtw_tgb_AND</option>
+                                
+                                    <option value="tgb_dtw_XOR">tgb_dtw_XOR</option>
+                                
+                                    <option value="gqg">gqg</option>
+                                
+                                    <option value="tgb">tgb</option>
+                                
+                                    <option value="bsc_gqg_OR">bsc_gqg_OR</option>
+                                
+                                    <option value="y20">y20</option>
+                                
+                                    <option value="y20_x20_AND">y20_x20_AND</option>
+                                
+                                    <option value="y20_x20_XOR">y20_x20_XOR</option>
+                                
+                                    <option value="pnb">pnb</option>
+                                
+                                    <option value="x20">x20</option>
+                                
+                                    <option value="tch_pnb_OR">tch_pnb_OR</option>
+                                
+                                    <option value="dcn">dcn</option>
+                                
+                                    <option value="dcn_qmb_OR">dcn_qmb_OR</option>
+                                
+                                    <option value="qmb">qmb</option>
+                                
+                                    <option value="hjv">hjv</option>
+                                
+                                    <option value="hjv_vwc_OR">hjv_vwc_OR</option>
+                                
+                                    <option value="fsw">fsw</option>
+                                
+                                    <option value="vwc">vwc</option>
+                                
+                                    <option value="fsw_nhj_XOR">fsw_nhj_XOR</option>
+                                
+                                    <option value="fsw_nhj_AND">fsw_nhj_AND</option>
+                                
+                                    <option value="x26">x26</option>
+                                
+                                    <option value="x26_y26_XOR">x26_y26_XOR</option>
+                                
+                                    <option value="y26_x26_AND">y26_x26_AND</option>
+                                
+                                    <option value="nvr">nvr</option>
+                                
+                                    <option value="y26">y26</option>
+                                
+                                    <option value="frt_nvr_OR">frt_nvr_OR</option>
+                                
+                                    <option value="x41">x41</option>
+                                
+                                    <option value="x41_y41_XOR">x41_y41_XOR</option>
+                                
+                                    <option value="x41_y41_AND">x41_y41_AND</option>
+                                
+                                    <option value="cjs">cjs</option>
+                                
+                                    <option value="y41">y41</option>
+                                
+                                    <option value="cgh_cjs_XOR">cgh_cjs_XOR</option>
+                                
+                                    <option value="cgh_cjs_AND">cgh_cjs_AND</option>
+                                
+                                    <option value="dwj">dwj</option>
+                                
+                                    <option value="dwj_qvk_OR">dwj_qvk_OR</option>
+                                
+                                    <option value="z45">z45</option>
+                                
+                                    <option value="qvk">qvk</option>
+                                
+                                    <option value="x27">x27</option>
+                                
+                                    <option value="x27_y27_XOR">x27_y27_XOR</option>
+                                
+                                    <option value="x27_y27_AND">x27_y27_AND</option>
+                                
+                                    <option value="crd">crd</option>
+                                
+                                    <option value="y27">y27</option>
+                                
+                                    <option value="bpb_crd_XOR">bpb_crd_XOR</option>
+                                
+                                    <option value="bpb_crd_AND">bpb_crd_AND</option>
+                                
+                                    <option value="whv">whv</option>
+                                
+                                    <option value="whv_ngt_XOR">whv_ngt_XOR</option>
+                                
+                                    <option value="whv_ngt_AND">whv_ngt_AND</option>
+                                
+                                    <option value="z43">z43</option>
+                                
+                                    <option value="ngt">ngt</option>
+                                
+                                    <option value="rfg">rfg</option>
+                                
+                                    <option value="rfg_mwk_AND">rfg_mwk_AND</option>
+                                
+                                    <option value="mwk_rfg_XOR">mwk_rfg_XOR</option>
+                                
+                                    <option value="tch">tch</option>
+                                
+                                    <option value="mwk">mwk</option>
+                                
+                                    <option value="bgt">bgt</option>
+                                
+                                    <option value="bgt_qjc_XOR">bgt_qjc_XOR</option>
+                                
+                                    <option value="bgt_qjc_AND">bgt_qjc_AND</option>
+                                
+                                    <option value="skf">skf</option>
+                                
+                                    <option value="qjc">qjc</option>
+                                
+                                    <option value="tgm_skf_OR">tgm_skf_OR</option>
+                                
+                                    <option value="frt">frt</option>
+                                
+                                    <option value="bpb">bpb</option>
+                                
+                                    <option value="y34">y34</option>
+                                
+                                    <option value="y34_x34_AND">y34_x34_AND</option>
+                                
+                                    <option value="x34_y34_XOR">x34_y34_XOR</option>
+                                
+                                    <option value="fnf">fnf</option>
+                                
+                                    <option value="x34">x34</option>
+                                
+                                    <option value="fnf_mhg_OR">fnf_mhg_OR</option>
+                                
+                                    <option value="pmm">pmm</option>
+                                
+                                    <option value="tgv_pmm_XOR">tgv_pmm_XOR</option>
+                                
+                                    <option value="tgv_pmm_AND">tgv_pmm_AND</option>
+                                
+                                    <option value="sws">sws</option>
+                                
+                                    <option value="sws_tpq_AND">sws_tpq_AND</option>
+                                
+                                    <option value="tpq_sws_XOR">tpq_sws_XOR</option>
+                                
+                                    <option value="tpq">tpq</option>
+                                
+                                    <option value="pcn">pcn</option>
+                                
+                                    <option value="pcn_vbm_OR">pcn_vbm_OR</option>
+                                
+                                    <option value="vbm">vbm</option>
+                                
+                                    <option value="njc">njc</option>
+                                
+                                    <option value="njc_kbk_OR">njc_kbk_OR</option>
+                                
+                                    <option value="jjb">jjb</option>
+                                
+                                    <option value="jjb_vkw_OR">jjb_vkw_OR</option>
+                                
+                                    <option value="vkw">vkw</option>
+                                
+                                    <option value="fdb">fdb</option>
+                                
+                                    <option value="fdb_smd_XOR">fdb_smd_XOR</option>
+                                
+                                    <option value="fdb_smd_AND">fdb_smd_AND</option>
+                                
+                                    <option value="z30">z30</option>
+                                
+                                    <option value="smd">smd</option>
+                                
+                                    <option value="ghh">ghh</option>
+                                
+                                    <option value="ghh_gnn_AND">ghh_gnn_AND</option>
+                                
+                                    <option value="ghh_gnn_XOR">ghh_gnn_XOR</option>
+                                
+                                    <option value="qhq">qhq</option>
+                                
+                                    <option value="gnn">gnn</option>
+                                
+                                    <option value="nck_qhq_OR">nck_qhq_OR</option>
+                                
+                                    <option value="spf">spf</option>
+                                
+                                    <option value="rds">rds</option>
+                                
+                                    <option value="dnk">dnk</option>
+                                
+                                    <option value="dnk_drk_AND">dnk_drk_AND</option>
+                                
+                                    <option value="dnk_drk_XOR">dnk_drk_XOR</option>
+                                
+                                    <option value="tdg">tdg</option>
+                                
+                                    <option value="drk">drk</option>
+                                
+                                    <option value="wrg">wrg</option>
+                                
+                                    <option value="wrg_rtn_OR">wrg_rtn_OR</option>
+                                
+                                    <option value="rbk">rbk</option>
+                                
+                                    <option value="rtn">rtn</option>
+                                
+                                    <option value="pmv_rbk_AND">pmv_rbk_AND</option>
+                                
+                                    <option value="pmv_rbk_XOR">pmv_rbk_XOR</option>
+                                
+                                    <option value="y19">y19</option>
+                                
+                                    <option value="y19_x19_AND">y19_x19_AND</option>
+                                
+                                    <option value="x19_y19_XOR">x19_y19_XOR</option>
+                                
+                                    <option value="kgh">kgh</option>
+                                
+                                    <option value="x19">x19</option>
+                                
+                                    <option value="kgh_bqj_OR">kgh_bqj_OR</option>
+                                
+                                    <option value="vnm">vnm</option>
+                                
+                                    <option value="vnm_bkm_OR">vnm_bkm_OR</option>
+                                
+                                    <option value="z05">z05</option>
+                                
+                                    <option value="x14">x14</option>
+                                
+                                    <option value="x14_y14_AND">x14_y14_AND</option>
+                                
+                                    <option value="x14_y14_XOR">x14_y14_XOR</option>
+                                
+                                    <option value="rmm">rmm</option>
+                                
+                                    <option value="y14">y14</option>
+                                
+                                    <option value="rmm_tst_OR">rmm_tst_OR</option>
+                                
+                                    <option value="qkf">qkf</option>
+                                
+                                    <option value="qkf_wkr_AND">qkf_wkr_AND</option>
+                                
+                                    <option value="qkf_wkr_XOR">qkf_wkr_XOR</option>
+                                
+                                    <option value="wkr">wkr</option>
+                                
+                                    <option value="y07">y07</option>
+                                
+                                    <option value="y07_x07_XOR">y07_x07_XOR</option>
+                                
+                                    <option value="y07_x07_AND">y07_x07_AND</option>
+                                
+                                    <option value="x07">x07</option>
+                                
+                                    <option value="fjf">fjf</option>
+                                
+                                    <option value="fjf_bmg_OR">fjf_bmg_OR</option>
+                                
+                                    <option value="nbp">nbp</option>
+                                
+                                    <option value="bmg">bmg</option>
+                                
+                                    <option value="pnh_nbp_AND">pnh_nbp_AND</option>
+                                
+                                    <option value="pnh_nbp_XOR">pnh_nbp_XOR</option>
+                                
+                                    <option value="z06">z06</option>
+                                
+                                    <option value="nhj">nhj</option>
+                                
+                                    <option value="fvk">fvk</option>
+                                
+                                    <option value="fvk_pbn_AND">fvk_pbn_AND</option>
+                                
+                                    <option value="fvk_pbn_XOR">fvk_pbn_XOR</option>
+                                
+                                    <option value="gpv">gpv</option>
+                                
+                                    <option value="pbn">pbn</option>
+                                
+                                    <option value="gpv_jrk_OR">gpv_jrk_OR</option>
+                                
+                                    <option value="y18">y18</option>
+                                
+                                    <option value="y18_x18_AND">y18_x18_AND</option>
+                                
+                                    <option value="y18_x18_XOR">y18_x18_XOR</option>
+                                
+                                    <option value="z18">z18</option>
+                                
+                                    <option value="x18">x18</option>
+                                
+                                    <option value="x21">x21</option>
+                                
+                                    <option value="x21_y21_AND">x21_y21_AND</option>
+                                
+                                    <option value="x21_y21_XOR">x21_y21_XOR</option>
+                                
+                                    <option value="vfr">vfr</option>
+                                
+                                    <option value="y21">y21</option>
+                                
+                                    <option value="djg_vfr_OR">djg_vfr_OR</option>
+                                
+                                    <option value="y24">y24</option>
+                                
+                                    <option value="y24_x24_AND">y24_x24_AND</option>
+                                
+                                    <option value="y24_x24_XOR">y24_x24_XOR</option>
+                                
+                                    <option value="x24">x24</option>
+                                
+                                    <option value="fjq">fjq</option>
+                                
+                                    <option value="bkm">bkm</option>
+                                
+                                    <option value="fjq_djd_AND">fjq_djd_AND</option>
+                                
+                                    <option value="fjq_djd_XOR">fjq_djd_XOR</option>
+                                
+                                    <option value="qcg">qcg</option>
+                                
+                                    <option value="hcb_qcg_OR">hcb_qcg_OR</option>
+                                
+                                    <option value="gtk">gtk</option>
+                                
+                                    <option value="gtk_cck_OR">gtk_cck_OR</option>
+                                
+                                    <option value="cck">cck</option>
+                                
+                                    <option value="pnh">pnh</option>
+                                
+                                    <option value="gms">gms</option>
+                                
+                                    <option value="jct_gms_OR">jct_gms_OR</option>
+                                
+                                    <option value="z28">z28</option>
+                                
+                                    <option value="x38">x38</option>
+                                
+                                    <option value="x38_y38_AND">x38_y38_AND</option>
+                                
+                                    <option value="x38_y38_XOR">x38_y38_XOR</option>
+                                
+                                    <option value="shn">shn</option>
+                                
+                                    <option value="y38">y38</option>
+                                
+                                    <option value="qrb_shn_OR">qrb_shn_OR</option>
+                                
+                                    <option value="wkd">wkd</option>
+                                
+                                    <option value="wkd_mbw_OR">wkd_mbw_OR</option>
+                                
+                                    <option value="tcb">tcb</option>
+                                
+                                    <option value="mbw">mbw</option>
+                                
+                                    <option value="tcb_jkh_XOR">tcb_jkh_XOR</option>
+                                
+                                    <option value="tcb_jkh_AND">tcb_jkh_AND</option>
+                                
+                                    <option value="x01">x01</option>
+                                
+                                    <option value="x01_y01_XOR">x01_y01_XOR</option>
+                                
+                                    <option value="x01_y01_AND">x01_y01_AND</option>
+                                
+                                    <option value="y01">y01</option>
+                                
+                                    <option value="tgm">tgm</option>
+                                
+                                    <option value="rrq">rrq</option>
+                                
+                                    <option value="scd_rrq_AND">scd_rrq_AND</option>
+                                
+                                    <option value="scd_rrq_XOR">scd_rrq_XOR</option>
+                                
+                                    <option value="pth">pth</option>
+                                
+                                    <option value="pth_vjb_XOR">pth_vjb_XOR</option>
+                                
+                                    <option value="pth_vjb_AND">pth_vjb_AND</option>
+                                
+                                    <option value="z39">z39</option>
+                                
+                                    <option value="vjb">vjb</option>
+                                
+                                    <option value="x09">x09</option>
+                                
+                                    <option value="x09_y09_AND">x09_y09_AND</option>
+                                
+                                    <option value="y09_x09_XOR">y09_x09_XOR</option>
+                                
+                                    <option value="y09">y09</option>
+                                
+                                    <option value="dkc">dkc</option>
+                                
+                                    <option value="dkc_tjh_XOR">dkc_tjh_XOR</option>
+                                
+                                    <option value="tjh_dkc_AND">tjh_dkc_AND</option>
+                                
+                                    <option value="z31">z31</option>
+                                
+                                    <option value="tjh">tjh</option>
+                                
+                                    <option value="z10">z10</option>
+                                
+                                    <option value="z04">z04</option>
+                                
+                                    <option value="scd">scd</option>
+                                
+                                    <option value="bht">bht</option>
+                                
+                                    <option value="bht_jkm_AND">bht_jkm_AND</option>
+                                
+                                    <option value="bht_jkm_XOR">bht_jkm_XOR</option>
+                                
+                                    <option value="qrb">qrb</option>
+                                
+                                    <option value="jkm">jkm</option>
+                                
+                                    <option value="y39">y39</option>
+                                
+                                    <option value="y39_x39_AND">y39_x39_AND</option>
+                                
+                                    <option value="y39_x39_XOR">y39_x39_XOR</option>
+                                
+                                    <option value="jmc">jmc</option>
+                                
+                                    <option value="x39">x39</option>
+                                
+                                    <option value="cvf_jmc_OR">cvf_jmc_OR</option>
+                                
+                                    <option value="x30">x30</option>
+                                
+                                    <option value="x30_y30_AND">x30_y30_AND</option>
+                                
+                                    <option value="x30_y30_XOR">x30_y30_XOR</option>
+                                
+                                    <option value="djm">djm</option>
+                                
+                                    <option value="y30">y30</option>
+                                
+                                    <option value="sst_djm_OR">sst_djm_OR</option>
+                                
+                                    <option value="mhg">mhg</option>
+                                
+                                    <option value="z44">z44</option>
+                                
+                                    <option value="jkh">jkh</option>
+                                
+                                    <option value="x37">x37</option>
+                                
+                                    <option value="x37_y37_XOR">x37_y37_XOR</option>
+                                
+                                    <option value="x37_y37_AND">x37_y37_AND</option>
+                                
+                                    <option value="djd">djd</option>
+                                
+                                    <option value="y37">y37</option>
+                                
+                                    <option value="jrk">jrk</option>
+                                
+                                    <option value="vds">vds</option>
+                                
+                                    <option value="fwk">fwk</option>
+                                
+                                    <option value="fwk_msp_AND">fwk_msp_AND</option>
+                                
+                                    <option value="msp_fwk_XOR">msp_fwk_XOR</option>
+                                
+                                    <option value="vbs">vbs</option>
+                                
+                                    <option value="msp">msp</option>
+                                
+                                    <option value="gpn_vbs_OR">gpn_vbs_OR</option>
+                                
+                                    <option value="y11">y11</option>
+                                
+                                    <option value="y11_x11_AND">y11_x11_AND</option>
+                                
+                                    <option value="x11_y11_XOR">x11_y11_XOR</option>
+                                
+                                    <option value="wpw">wpw</option>
+                                
+                                    <option value="x11">x11</option>
+                                
+                                    <option value="wpw_pnq_OR">wpw_pnq_OR</option>
+                                
+                                    <option value="bfg">bfg</option>
+                                
+                                    <option value="bfg_tdd_AND">bfg_tdd_AND</option>
+                                
+                                    <option value="bfg_tdd_XOR">bfg_tdd_XOR</option>
+                                
+                                    <option value="vhb">vhb</option>
+                                
+                                    <option value="vhb_bpf_AND">vhb_bpf_AND</option>
+                                
+                                    <option value="vhb_bpf_XOR">vhb_bpf_XOR</option>
+                                
+                                    <option value="tst">tst</option>
+                                
+                                    <option value="bpf">bpf</option>
+                                
+                                    <option value="gpn">gpn</option>
+                                
+                                    <option value="gmp">gmp</option>
+                                
+                                    <option value="gmp_rgn_AND">gmp_rgn_AND</option>
+                                
+                                    <option value="gmp_rgn_XOR">gmp_rgn_XOR</option>
+                                
+                                    <option value="cgh">cgh</option>
+                                
+                                    <option value="z41">z41</option>
+                                
+                                    <option value="x23">x23</option>
+                                
+                                    <option value="x23_y23_AND">x23_y23_AND</option>
+                                
+                                    <option value="y23_x23_XOR">y23_x23_XOR</option>
+                                
+                                    <option value="wjw">wjw</option>
+                                
+                                    <option value="y23">y23</option>
+                                
+                                    <option value="wjw_hqw_OR">wjw_hqw_OR</option>
+                                
+                                    <option value="z20">z20</option>
+                                
+                                    <option value="kbk">kbk</option>
+                                
+                                    <option value="x16">x16</option>
+                                
+                                    <option value="x16_y16_AND">x16_y16_AND</option>
+                                
+                                    <option value="y16_x16_XOR">y16_x16_XOR</option>
+                                
+                                    <option value="y16">y16</option>
+                                
+                                    <option value="gvr">gvr</option>
+                                
+                                    <option value="fvp_gvr_OR">fvp_gvr_OR</option>
+                                
+                                    <option value="tgv">tgv</option>
+                                
+                                    <option value="z40">z40</option>
+                                
+                                    <option value="y17">y17</option>
+                                
+                                    <option value="y17_x17_XOR">y17_x17_XOR</option>
+                                
+                                    <option value="x17_y17_AND">x17_y17_AND</option>
+                                
+                                    <option value="x17">x17</option>
+                                
+                                    <option value="x43">x43</option>
+                                
+                                    <option value="x43_y43_XOR">x43_y43_XOR</option>
+                                
+                                    <option value="y43_x43_AND">y43_x43_AND</option>
+                                
+                                    <option value="y43">y43</option>
+                                
+                                    <option value="z07">z07</option>
+                                
+                                    <option value="y31">y31</option>
+                                
+                                    <option value="y31_x31_XOR">y31_x31_XOR</option>
+                                
+                                    <option value="y31_x31_AND">y31_x31_AND</option>
+                                
+                                    <option value="x31">x31</option>
+                                
+                                    <option value="swd">swd</option>
+                                
+                                    <option value="bcv_swd_AND">bcv_swd_AND</option>
+                                
+                                    <option value="swd_bcv_XOR">swd_bcv_XOR</option>
+                                
+                                    <option value="x15">x15</option>
+                                
+                                    <option value="x15_y15_XOR">x15_y15_XOR</option>
+                                
+                                    <option value="y15_x15_AND">y15_x15_AND</option>
+                                
+                                    <option value="y15">y15</option>
+                                
+                                    <option value="x06">x06</option>
+                                
+                                    <option value="x06_y06_XOR">x06_y06_XOR</option>
+                                
+                                    <option value="y06_x06_AND">y06_x06_AND</option>
+                                
+                                    <option value="y06">y06</option>
+                                
+                                    <option value="z09">z09</option>
+                                
+                                    <option value="nck">nck</option>
+                                
+                                    <option value="z27">z27</option>
+                                
+                                    <option value="bcv">bcv</option>
+                                
+                                    <option value="djg">djg</option>
+                                
+                                    <option value="hcb">hcb</option>
+                                
+                                    <option value="y42">y42</option>
+                                
+                                    <option value="y42_x42_AND">y42_x42_AND</option>
+                                
+                                    <option value="y42_x42_XOR">y42_x42_XOR</option>
+                                
+                                    <option value="x42">x42</option>
+                                
+                                    <option value="fvp">fvp</option>
+                                
+                                    <option value="hfj">hfj</option>
+                                
+                                    <option value="x44">x44</option>
+                                
+                                    <option value="x44_y44_XOR">x44_y44_XOR</option>
+                                
+                                    <option value="x44_y44_AND">x44_y44_AND</option>
+                                
+                                    <option value="y44">y44</option>
+                                
+                                    <option value="gwd">gwd</option>
+                                
+                                    <option value="gwd_sbg_XOR">gwd_sbg_XOR</option>
+                                
+                                    <option value="gwd_sbg_AND">gwd_sbg_AND</option>
+                                
+                                    <option value="z11">z11</option>
+                                
+                                    <option value="sbg">sbg</option>
+                                
+                                    <option value="vft">vft</option>
+                                
+                                    <option value="vft_hkk_AND">vft_hkk_AND</option>
+                                
+                                    <option value="vft_hkk_XOR">vft_hkk_XOR</option>
+                                
+                                    <option value="djp">djp</option>
+                                
+                                    <option value="rgn">rgn</option>
+                                
+                                    <option value="djp_wwt_OR">djp_wwt_OR</option>
+                                
+                                    <option value="hqw">hqw</option>
+                                
+                                    <option value="hkk">hkk</option>
+                                
+                                    <option value="knh">knh</option>
+                                
+                                    <option value="wbw_knh_XOR">wbw_knh_XOR</option>
+                                
+                                    <option value="knh_wbw_AND">knh_wbw_AND</option>
+                                
+                                    <option value="bkc">bkc</option>
+                                
+                                    <option value="mqr_bkc_OR">mqr_bkc_OR</option>
+                                
+                                    <option value="wwt">wwt</option>
+                                
+                                    <option value="y25">y25</option>
+                                
+                                    <option value="y25_x25_AND">y25_x25_AND</option>
+                                
+                                    <option value="y25_x25_XOR">y25_x25_XOR</option>
+                                
+                                    <option value="kvp">kvp</option>
+                                
+                                    <option value="x25">x25</option>
+                                
+                                    <option value="kvp_qsm_OR">kvp_qsm_OR</option>
+                                
+                                    <option value="mqr">mqr</option>
+                                
+                                    <option value="sst">sst</option>
+                                
+                                    <option value="x05">x05</option>
+                                
+                                    <option value="x05_y05_AND">x05_y05_AND</option>
+                                
+                                    <option value="y05_x05_XOR">y05_x05_XOR</option>
+                                
+                                    <option value="y05">y05</option>
+                                
+                                    <option value="qsm">qsm</option>
+                                
+                                    <option value="bqj">bqj</option>
+                                
+                                    <option value="z17">z17</option>
+                                
+                                    <option value="z19">z19</option>
+                                
+                                    <option value="y12">y12</option>
+                                
+                                    <option value="y12_x12_AND">y12_x12_AND</option>
+                                
+                                    <option value="x12_y12_XOR">x12_y12_XOR</option>
+                                
+                                    <option value="x12">x12</option>
+                                
+                                    <option value="btr">btr</option>
+                                
+                                    <option value="bsd">bsd</option>
+                                
+                                    <option value="fvm_bsd_OR">fvm_bsd_OR</option>
+                                
+                                    <option value="ggj">ggj</option>
+                                
+                                    <option value="hcv_ggj_AND">hcv_ggj_AND</option>
+                                
+                                    <option value="hcv_ggj_XOR">hcv_ggj_XOR</option>
+                                
+                                    <option value="pmv">pmv</option>
+                                
+                                    <option value="z13">z13</option>
+                                
+                                    <option value="z23">z23</option>
+                                
+                                    <option value="fwv">fwv</option>
+                                
+                                    <option value="fwv_rwk_XOR">fwv_rwk_XOR</option>
+                                
+                                    <option value="rwk_fwv_AND">rwk_fwv_AND</option>
+                                
+                                    <option value="z32">z32</option>
+                                
+                                    <option value="rwk">rwk</option>
+                                
+                                    <option value="wbw">wbw</option>
+                                
+                                    <option value="hcv">hcv</option>
+                                
+                                    <option value="sss">sss</option>
+                                
+                                    <option value="sss_cmv_OR">sss_cmv_OR</option>
+                                
+                                    <option value="cmv">cmv</option>
+                                
+                                    <option value="x08">x08</option>
+                                
+                                    <option value="x08_y08_XOR">x08_y08_XOR</option>
+                                
+                                    <option value="y08_x08_AND">y08_x08_AND</option>
+                                
+                                    <option value="y08">y08</option>
+                                
+                                    <option value="z14">z14</option>
+                                
+                                    <option value="x00">x00</option>
+                                
+                                    <option value="x00_y00_XOR">x00_y00_XOR</option>
+                                
+                                    <option value="x00_y00_AND">x00_y00_AND</option>
+                                
+                                    <option value="z00">z00</option>
+                                
+                                    <option value="y00">y00</option>
+                                
+                                    <option value="tmp">tmp</option>
+                                
+                                    <option value="tmp_gph_AND">tmp_gph_AND</option>
+                                
+                                    <option value="tmp_gph_XOR">tmp_gph_XOR</option>
+                                
+                                    <option value="gph">gph</option>
+                                
+                                    <option value="x29">x29</option>
+                                
+                                    <option value="x29_y29_XOR">x29_y29_XOR</option>
+                                
+                                    <option value="y29_x29_AND">y29_x29_AND</option>
+                                
+                                    <option value="y29">y29</option>
+                                
+                                    <option value="z15">z15</option>
+                                
+                                    <option value="cvf">cvf</option>
+                                
+                                    <option value="y33">y33</option>
+                                
+                                    <option value="y33_x33_AND">y33_x33_AND</option>
+                                
+                                    <option value="y33_x33_XOR">y33_x33_XOR</option>
+                                
+                                    <option value="x33">x33</option>
+                                
+                                    <option value="tdd">tdd</option>
+                                
+                                    <option value="y03">y03</option>
+                                
+                                    <option value="y03_x03_XOR">y03_x03_XOR</option>
+                                
+                                    <option value="x03_y03_AND">x03_y03_AND</option>
+                                
+                                    <option value="x03">x03</option>
+                                
+                                    <option value="x04">x04</option>
+                                
+                                    <option value="x04_y04_XOR">x04_y04_XOR</option>
+                                
+                                    <option value="x04_y04_AND">x04_y04_AND</option>
+                                
+                                    <option value="y04">y04</option>
+                                
+                                    <option value="hsw">hsw</option>
+                                
+                                    <option value="vjf_hsw_OR">vjf_hsw_OR</option>
+                                
+                                    <option value="gpt">gpt</option>
+                                
+                                    <option value="gpt_fcf_AND">gpt_fcf_AND</option>
+                                
+                                    <option value="fcf_gpt_XOR">fcf_gpt_XOR</option>
+                                
+                                    <option value="fcf">fcf</option>
+                                
+                                    <option value="y13">y13</option>
+                                
+                                    <option value="y13_x13_AND">y13_x13_AND</option>
+                                
+                                    <option value="x13_y13_XOR">x13_y13_XOR</option>
+                                
+                                    <option value="vjf">vjf</option>
+                                
+                                    <option value="x13">x13</option>
+                                
+                                    <option value="y32">y32</option>
+                                
+                                    <option value="y32_x32_XOR">y32_x32_XOR</option>
+                                
+                                    <option value="x32_y32_AND">x32_y32_AND</option>
+                                
+                                    <option value="x32">x32</option>
+                                
+                                    <option value="fvm">fvm</option>
+                                
+                                    <option value="z38">z38</option>
+                                
+                                    <option value="z03">z03</option>
+                                
+                                    <option value="bsc">bsc</option>
+                                
+                                    <option value="spd">spd</option>
+                                
+                                    <option value="spd_rmv_OR">spd_rmv_OR</option>
+                                
+                                    <option value="rmv">rmv</option>
+                                
+                                    <option value="cbn">cbn</option>
+                                
+                                    <option value="dvw_cbn_OR">dvw_cbn_OR</option>
+                                
+                                    <option value="z37">z37</option>
+                                
+                                    <option value="z21">z21</option>
+                                
+                                    <option value="dvw">dvw</option>
+                                
+                                    <option value="z01">z01</option>
+                                
+                                    <option value="jct">jct</option>
+                                
+                                    <option value="pnq">pnq</option>
+                                
+                                    <option value="z24">z24</option>
+                                
+                                    <option value="z26">z26</option>
+                                
+                                    <option value="z29">z29</option>
+                                
+                                    <option value="y35">y35</option>
+                                
+                                    <option value="y35_x35_AND">y35_x35_AND</option>
+                                
+                                    <option value="x35_y35_XOR">x35_y35_XOR</option>
+                                
+                                    <option value="x35">x35</option>
+                                
+                                    <option value="z12">z12</option>
+                                
+                                    <option value="tvw">tvw</option>
+                                
+                                    <option value="z16">z16</option>
+                                
+                                    <option value="z02">z02</option>
+                                
+                                    <option value="z22">z22</option>
+                                
+                                    <option value="z35">z35</option>
+                                
+                                    <option value="z08">z08</option>
+                                
+                                    <option value="z42">z42</option>
+                                
+                                    <option value="y02">y02</option>
+                                
+                                    <option value="y02_x02_XOR">y02_x02_XOR</option>
+                                
+                                    <option value="x02_y02_AND">x02_y02_AND</option>
+                                
+                                    <option value="x02">x02</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+              <div id="filter-menu" class="card-header">
+                <div class="row no-gutters">
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'item')"
+                            id="select-item"
+                        >
+                        <option value="">Select a network item</option>
+                        <option value="edge">edge</option>
+                        <option value="node">node</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="updateFilter(value, 'property')"
+                            id="select-property"
+                        >
+                        <option value="">Select a property...</option>
+                    </select>
+                  </div>
+                  <div class="col-3 pb-2">
+                    <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="select-value"
+                        >
+                        <option value="">Select value(s)...</option>
+                    </select>
+                  </div>
+                  <div class="col-1 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="highlightFilter(filter);">Filter</button>
+                  </div>
+                  <div class="col-2 pb-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="clearFilter(true)">Reset Selection</button>
+                  </div>
+                </div>
+              </div>
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+                  // explicitly using onItemAdd and this function as we need to save multiple values
+                  let updateValueFilter = function() {
+                      return function () {
+                      filter['value'].push(arguments[0])
+                      }
+                  }
+
+                  let valueControl = new TomSelect("#select-value",{
+                      maxItems: null,
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: updateValueFilter()
+                  });
+
+                  let addValues = function() {
+                      return function () {
+                          // clear the current value options and add the selected attribute values
+                          // tom-select handles duplicates
+                          let selectedProperty = arguments[0];
+                          valueControl.clear();
+                          valueControl.clearOptions();
+                          filter['value'] = []
+                          if (filter['item'] === 'node') {
+                              for (let each in allNodes) {
+                                  valueControl.addOption({
+                                      id:allNodes[each][selectedProperty],
+                                      title:allNodes[each][selectedProperty]
+                                  })
+                              }
+                          }
+                          else if (filter['item'] === 'edge') {
+                              for (let each in allEdges) {
+                                  valueControl.addOption({
+                                      id:allEdges[each][selectedProperty],
+                                      title:allEdges[each][selectedProperty]
+                                  })
+                              }
+                          }
+                      }
+                  };
+
+                  let propControl = new TomSelect("#select-property",{
+                      valueField: 'id',
+                      labelField: 'title',
+                      searchField: 'title',
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addValues()
+                  });
+
+                  let addProperties = function() {
+                      return function () {
+                          // loops through the selected network item and adds the attributes to dropdown
+                          // tom-select handles duplicates
+                          clearFilter(false)
+                          if (arguments[0] === 'edge') {
+                              for (let each in allEdges) {
+                                  if (allEdges.hasOwnProperty(each)) {
+                                      for (let eachProp in allEdges[each]) {
+                                          if (allEdges[each].hasOwnProperty(eachProp)) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                          else if (arguments[0] === 'node') {
+                              for (let each in allNodes) {
+                                  if (allNodes.hasOwnProperty(each)) {
+                                      for (let eachProp in allNodes[each]) {
+                                          if (allNodes[each].hasOwnProperty(eachProp)
+                                              && (eachProp !== 'hidden' && eachProp !== 'savedLabel'
+                                                  && eachProp !== 'hiddenLabel')) {
+                                              propControl.addOption({id: eachProp, title: eachProp})
+
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  };
+
+                  let itemControl = new TomSelect("#select-item",{
+                      create: false,
+                      sortField:{
+                          field: "text",
+                          direction: "asc"
+                      },
+                      onItemAdd: addProperties()
+                  });
+
+                  function clearFilter(reset) {
+                      // utility function to clear all the selected filter options
+                      // if reset is set to true, the existing filter will be removed
+                      // else, only the dropdown options are cleared
+                      propControl.clear();
+                      propControl.clearOptions();
+                      valueControl.clear();
+                      valueControl.clearOptions();
+                      filter = {
+                          item : '',
+                          property : '',
+                          value : []
+                      }
+                      if (reset) {
+                          itemControl.clear();
+                          filterHighlight({nodes: []})
+                      }
+                  }
+
+                  function updateFilter(value, key) {
+                      // key could be 'item' or 'property' and value is as selected in dropdown
+                      filter[key] = value
+                  }
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "x36", "label": "x36", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x36_y36_XOR", "label": "x36_y36_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y36_x36_AND", "label": "y36_x36_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sfj", "label": "sfj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y36", "label": "y36", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sfj_fjm_XOR", "label": "sfj_fjm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sfj_fjm_AND", "label": "sfj_fjm_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mpq", "label": "mpq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mpq_dvh_AND", "label": "mpq_dvh_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dvh_mpq_XOR", "label": "dvh_mpq_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qgg", "label": "qgg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dvh", "label": "dvh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qgg_vds_OR", "label": "qgg_vds_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z36", "label": "z36", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fjm", "label": "fjm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y10", "label": "y10", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y10_x10_AND", "label": "y10_x10_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x10_y10_XOR", "label": "x10_y10_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pjt", "label": "pjt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x10", "label": "x10", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "spf_pjt_OR", "label": "spf_pjt_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pds", "label": "pds", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pds_wsg_XOR", "label": "pds_wsg_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pds_wsg_AND", "label": "pds_wsg_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z25", "label": "z25", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wsg", "label": "wsg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wjm", "label": "wjm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wjm_rhk_XOR", "label": "wjm_rhk_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wjm_rhk_AND", "label": "wjm_rhk_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z33", "label": "z33", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rhk", "label": "rhk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dvd", "label": "dvd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dvd_kgf_OR", "label": "dvd_kgf_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ckp", "label": "ckp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "kgf", "label": "kgf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ckp_rds_AND", "label": "ckp_rds_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rds_ckp_XOR", "label": "rds_ckp_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgj", "label": "tgj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgj_mkm_XOR", "label": "tgj_mkm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mkm_tgj_AND", "label": "mkm_tgj_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bjm", "label": "bjm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mkm", "label": "mkm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "btr_bjm_AND", "label": "btr_bjm_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "btr_bjm_XOR", "label": "btr_bjm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x40", "label": "x40", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x40_y40_AND", "label": "x40_y40_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y40_x40_XOR", "label": "y40_x40_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vkd", "label": "vkd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y40", "label": "y40", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hfj_vkd_OR", "label": "hfj_vkd_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x28", "label": "x28", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x28_y28_XOR", "label": "x28_y28_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y28_x28_AND", "label": "y28_x28_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vvc", "label": "vvc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y28", "label": "y28", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rwm_vvc_AND", "label": "rwm_vvc_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vvc_rwm_XOR", "label": "vvc_rwm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y22", "label": "y22", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y22_x22_AND", "label": "y22_x22_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y22_x22_XOR", "label": "y22_x22_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tmq", "label": "tmq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x22", "label": "x22", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tdg_tmq_OR", "label": "tdg_tmq_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gdw", "label": "gdw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gdw_tns_AND", "label": "gdw_tns_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tns_gdw_XOR", "label": "tns_gdw_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tns", "label": "tns", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rwm", "label": "rwm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cdj", "label": "cdj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tvw_cdj_OR", "label": "tvw_cdj_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mwg", "label": "mwg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mwg_hmm_XOR", "label": "mwg_hmm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mwg_hmm_AND", "label": "mwg_hmm_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z34", "label": "z34", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hmm", "label": "hmm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dtw", "label": "dtw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dtw_tgb_AND", "label": "dtw_tgb_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgb_dtw_XOR", "label": "tgb_dtw_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gqg", "label": "gqg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgb", "label": "tgb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bsc_gqg_OR", "label": "bsc_gqg_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y20", "label": "y20", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y20_x20_AND", "label": "y20_x20_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y20_x20_XOR", "label": "y20_x20_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pnb", "label": "pnb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x20", "label": "x20", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tch_pnb_OR", "label": "tch_pnb_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dcn", "label": "dcn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dcn_qmb_OR", "label": "dcn_qmb_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qmb", "label": "qmb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hjv", "label": "hjv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hjv_vwc_OR", "label": "hjv_vwc_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fsw", "label": "fsw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vwc", "label": "vwc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fsw_nhj_XOR", "label": "fsw_nhj_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fsw_nhj_AND", "label": "fsw_nhj_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x26", "label": "x26", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x26_y26_XOR", "label": "x26_y26_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y26_x26_AND", "label": "y26_x26_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "nvr", "label": "nvr", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y26", "label": "y26", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "frt_nvr_OR", "label": "frt_nvr_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x41", "label": "x41", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x41_y41_XOR", "label": "x41_y41_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x41_y41_AND", "label": "x41_y41_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cjs", "label": "cjs", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y41", "label": "y41", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cgh_cjs_XOR", "label": "cgh_cjs_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cgh_cjs_AND", "label": "cgh_cjs_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dwj", "label": "dwj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dwj_qvk_OR", "label": "dwj_qvk_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z45", "label": "z45", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qvk", "label": "qvk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x27", "label": "x27", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x27_y27_XOR", "label": "x27_y27_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x27_y27_AND", "label": "x27_y27_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "crd", "label": "crd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y27", "label": "y27", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bpb_crd_XOR", "label": "bpb_crd_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bpb_crd_AND", "label": "bpb_crd_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "whv", "label": "whv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "whv_ngt_XOR", "label": "whv_ngt_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "whv_ngt_AND", "label": "whv_ngt_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z43", "label": "z43", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ngt", "label": "ngt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rfg", "label": "rfg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rfg_mwk_AND", "label": "rfg_mwk_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mwk_rfg_XOR", "label": "mwk_rfg_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tch", "label": "tch", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mwk", "label": "mwk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bgt", "label": "bgt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bgt_qjc_XOR", "label": "bgt_qjc_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bgt_qjc_AND", "label": "bgt_qjc_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "skf", "label": "skf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qjc", "label": "qjc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgm_skf_OR", "label": "tgm_skf_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "frt", "label": "frt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bpb", "label": "bpb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y34", "label": "y34", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y34_x34_AND", "label": "y34_x34_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x34_y34_XOR", "label": "x34_y34_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fnf", "label": "fnf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x34", "label": "x34", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fnf_mhg_OR", "label": "fnf_mhg_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pmm", "label": "pmm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgv_pmm_XOR", "label": "tgv_pmm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgv_pmm_AND", "label": "tgv_pmm_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sws", "label": "sws", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sws_tpq_AND", "label": "sws_tpq_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tpq_sws_XOR", "label": "tpq_sws_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tpq", "label": "tpq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pcn", "label": "pcn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pcn_vbm_OR", "label": "pcn_vbm_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vbm", "label": "vbm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "njc", "label": "njc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "njc_kbk_OR", "label": "njc_kbk_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jjb", "label": "jjb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jjb_vkw_OR", "label": "jjb_vkw_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vkw", "label": "vkw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fdb", "label": "fdb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fdb_smd_XOR", "label": "fdb_smd_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fdb_smd_AND", "label": "fdb_smd_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z30", "label": "z30", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "smd", "label": "smd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ghh", "label": "ghh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ghh_gnn_AND", "label": "ghh_gnn_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ghh_gnn_XOR", "label": "ghh_gnn_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qhq", "label": "qhq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gnn", "label": "gnn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "nck_qhq_OR", "label": "nck_qhq_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "spf", "label": "spf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rds", "label": "rds", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dnk", "label": "dnk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dnk_drk_AND", "label": "dnk_drk_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dnk_drk_XOR", "label": "dnk_drk_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tdg", "label": "tdg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "drk", "label": "drk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wrg", "label": "wrg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wrg_rtn_OR", "label": "wrg_rtn_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rbk", "label": "rbk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rtn", "label": "rtn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pmv_rbk_AND", "label": "pmv_rbk_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pmv_rbk_XOR", "label": "pmv_rbk_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y19", "label": "y19", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y19_x19_AND", "label": "y19_x19_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x19_y19_XOR", "label": "x19_y19_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "kgh", "label": "kgh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x19", "label": "x19", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "kgh_bqj_OR", "label": "kgh_bqj_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vnm", "label": "vnm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vnm_bkm_OR", "label": "vnm_bkm_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z05", "label": "z05", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x14", "label": "x14", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x14_y14_AND", "label": "x14_y14_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x14_y14_XOR", "label": "x14_y14_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rmm", "label": "rmm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y14", "label": "y14", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rmm_tst_OR", "label": "rmm_tst_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qkf", "label": "qkf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qkf_wkr_AND", "label": "qkf_wkr_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qkf_wkr_XOR", "label": "qkf_wkr_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wkr", "label": "wkr", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y07", "label": "y07", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y07_x07_XOR", "label": "y07_x07_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y07_x07_AND", "label": "y07_x07_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x07", "label": "x07", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fjf", "label": "fjf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fjf_bmg_OR", "label": "fjf_bmg_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "nbp", "label": "nbp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bmg", "label": "bmg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pnh_nbp_AND", "label": "pnh_nbp_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pnh_nbp_XOR", "label": "pnh_nbp_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z06", "label": "z06", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "nhj", "label": "nhj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvk", "label": "fvk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvk_pbn_AND", "label": "fvk_pbn_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvk_pbn_XOR", "label": "fvk_pbn_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gpv", "label": "gpv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pbn", "label": "pbn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gpv_jrk_OR", "label": "gpv_jrk_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y18", "label": "y18", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y18_x18_AND", "label": "y18_x18_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y18_x18_XOR", "label": "y18_x18_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z18", "label": "z18", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x18", "label": "x18", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x21", "label": "x21", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x21_y21_AND", "label": "x21_y21_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x21_y21_XOR", "label": "x21_y21_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vfr", "label": "vfr", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y21", "label": "y21", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "djg_vfr_OR", "label": "djg_vfr_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y24", "label": "y24", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y24_x24_AND", "label": "y24_x24_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y24_x24_XOR", "label": "y24_x24_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x24", "label": "x24", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fjq", "label": "fjq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bkm", "label": "bkm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fjq_djd_AND", "label": "fjq_djd_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fjq_djd_XOR", "label": "fjq_djd_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qcg", "label": "qcg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hcb_qcg_OR", "label": "hcb_qcg_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gtk", "label": "gtk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gtk_cck_OR", "label": "gtk_cck_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cck", "label": "cck", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pnh", "label": "pnh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gms", "label": "gms", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jct_gms_OR", "label": "jct_gms_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z28", "label": "z28", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x38", "label": "x38", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x38_y38_AND", "label": "x38_y38_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x38_y38_XOR", "label": "x38_y38_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "shn", "label": "shn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y38", "label": "y38", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qrb_shn_OR", "label": "qrb_shn_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wkd", "label": "wkd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wkd_mbw_OR", "label": "wkd_mbw_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tcb", "label": "tcb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mbw", "label": "mbw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tcb_jkh_XOR", "label": "tcb_jkh_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tcb_jkh_AND", "label": "tcb_jkh_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x01", "label": "x01", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x01_y01_XOR", "label": "x01_y01_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x01_y01_AND", "label": "x01_y01_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y01", "label": "y01", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgm", "label": "tgm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rrq", "label": "rrq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "scd_rrq_AND", "label": "scd_rrq_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "scd_rrq_XOR", "label": "scd_rrq_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pth", "label": "pth", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pth_vjb_XOR", "label": "pth_vjb_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pth_vjb_AND", "label": "pth_vjb_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z39", "label": "z39", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vjb", "label": "vjb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x09", "label": "x09", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x09_y09_AND", "label": "x09_y09_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y09_x09_XOR", "label": "y09_x09_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y09", "label": "y09", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dkc", "label": "dkc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dkc_tjh_XOR", "label": "dkc_tjh_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tjh_dkc_AND", "label": "tjh_dkc_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z31", "label": "z31", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tjh", "label": "tjh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z10", "label": "z10", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z04", "label": "z04", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "scd", "label": "scd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bht", "label": "bht", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bht_jkm_AND", "label": "bht_jkm_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bht_jkm_XOR", "label": "bht_jkm_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qrb", "label": "qrb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jkm", "label": "jkm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y39", "label": "y39", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y39_x39_AND", "label": "y39_x39_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y39_x39_XOR", "label": "y39_x39_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jmc", "label": "jmc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x39", "label": "x39", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cvf_jmc_OR", "label": "cvf_jmc_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x30", "label": "x30", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x30_y30_AND", "label": "x30_y30_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x30_y30_XOR", "label": "x30_y30_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "djm", "label": "djm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y30", "label": "y30", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sst_djm_OR", "label": "sst_djm_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mhg", "label": "mhg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z44", "label": "z44", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jkh", "label": "jkh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x37", "label": "x37", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x37_y37_XOR", "label": "x37_y37_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x37_y37_AND", "label": "x37_y37_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "djd", "label": "djd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y37", "label": "y37", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jrk", "label": "jrk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vds", "label": "vds", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fwk", "label": "fwk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fwk_msp_AND", "label": "fwk_msp_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "msp_fwk_XOR", "label": "msp_fwk_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vbs", "label": "vbs", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "msp", "label": "msp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gpn_vbs_OR", "label": "gpn_vbs_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y11", "label": "y11", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y11_x11_AND", "label": "y11_x11_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x11_y11_XOR", "label": "x11_y11_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wpw", "label": "wpw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x11", "label": "x11", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wpw_pnq_OR", "label": "wpw_pnq_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bfg", "label": "bfg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bfg_tdd_AND", "label": "bfg_tdd_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bfg_tdd_XOR", "label": "bfg_tdd_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vhb", "label": "vhb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vhb_bpf_AND", "label": "vhb_bpf_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vhb_bpf_XOR", "label": "vhb_bpf_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tst", "label": "tst", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bpf", "label": "bpf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gpn", "label": "gpn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gmp", "label": "gmp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gmp_rgn_AND", "label": "gmp_rgn_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gmp_rgn_XOR", "label": "gmp_rgn_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cgh", "label": "cgh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z41", "label": "z41", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x23", "label": "x23", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x23_y23_AND", "label": "x23_y23_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y23_x23_XOR", "label": "y23_x23_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wjw", "label": "wjw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y23", "label": "y23", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wjw_hqw_OR", "label": "wjw_hqw_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z20", "label": "z20", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "kbk", "label": "kbk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x16", "label": "x16", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x16_y16_AND", "label": "x16_y16_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y16_x16_XOR", "label": "y16_x16_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y16", "label": "y16", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gvr", "label": "gvr", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvp_gvr_OR", "label": "fvp_gvr_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tgv", "label": "tgv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z40", "label": "z40", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y17", "label": "y17", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y17_x17_XOR", "label": "y17_x17_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x17_y17_AND", "label": "x17_y17_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x17", "label": "x17", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x43", "label": "x43", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x43_y43_XOR", "label": "x43_y43_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y43_x43_AND", "label": "y43_x43_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y43", "label": "y43", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z07", "label": "z07", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y31", "label": "y31", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y31_x31_XOR", "label": "y31_x31_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y31_x31_AND", "label": "y31_x31_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x31", "label": "x31", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "swd", "label": "swd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bcv_swd_AND", "label": "bcv_swd_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "swd_bcv_XOR", "label": "swd_bcv_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x15", "label": "x15", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x15_y15_XOR", "label": "x15_y15_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y15_x15_AND", "label": "y15_x15_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y15", "label": "y15", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x06", "label": "x06", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x06_y06_XOR", "label": "x06_y06_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y06_x06_AND", "label": "y06_x06_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y06", "label": "y06", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z09", "label": "z09", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "nck", "label": "nck", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z27", "label": "z27", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bcv", "label": "bcv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "djg", "label": "djg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hcb", "label": "hcb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y42", "label": "y42", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y42_x42_AND", "label": "y42_x42_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y42_x42_XOR", "label": "y42_x42_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x42", "label": "x42", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvp", "label": "fvp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hfj", "label": "hfj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x44", "label": "x44", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x44_y44_XOR", "label": "x44_y44_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x44_y44_AND", "label": "x44_y44_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y44", "label": "y44", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gwd", "label": "gwd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gwd_sbg_XOR", "label": "gwd_sbg_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gwd_sbg_AND", "label": "gwd_sbg_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z11", "label": "z11", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sbg", "label": "sbg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vft", "label": "vft", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vft_hkk_AND", "label": "vft_hkk_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vft_hkk_XOR", "label": "vft_hkk_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "djp", "label": "djp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rgn", "label": "rgn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "djp_wwt_OR", "label": "djp_wwt_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hqw", "label": "hqw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hkk", "label": "hkk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "knh", "label": "knh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wbw_knh_XOR", "label": "wbw_knh_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "knh_wbw_AND", "label": "knh_wbw_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bkc", "label": "bkc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mqr_bkc_OR", "label": "mqr_bkc_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wwt", "label": "wwt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y25", "label": "y25", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y25_x25_AND", "label": "y25_x25_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y25_x25_XOR", "label": "y25_x25_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "kvp", "label": "kvp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x25", "label": "x25", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "kvp_qsm_OR", "label": "kvp_qsm_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mqr", "label": "mqr", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sst", "label": "sst", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x05", "label": "x05", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x05_y05_AND", "label": "x05_y05_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y05_x05_XOR", "label": "y05_x05_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y05", "label": "y05", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "qsm", "label": "qsm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bqj", "label": "bqj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z17", "label": "z17", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z19", "label": "z19", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y12", "label": "y12", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y12_x12_AND", "label": "y12_x12_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x12_y12_XOR", "label": "x12_y12_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x12", "label": "x12", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "btr", "label": "btr", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bsd", "label": "bsd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvm_bsd_OR", "label": "fvm_bsd_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ggj", "label": "ggj", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hcv_ggj_AND", "label": "hcv_ggj_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hcv_ggj_XOR", "label": "hcv_ggj_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pmv", "label": "pmv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z13", "label": "z13", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z23", "label": "z23", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fwv", "label": "fwv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fwv_rwk_XOR", "label": "fwv_rwk_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rwk_fwv_AND", "label": "rwk_fwv_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z32", "label": "z32", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rwk", "label": "rwk", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "wbw", "label": "wbw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hcv", "label": "hcv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sss", "label": "sss", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sss_cmv_OR", "label": "sss_cmv_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cmv", "label": "cmv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x08", "label": "x08", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x08_y08_XOR", "label": "x08_y08_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y08_x08_AND", "label": "y08_x08_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y08", "label": "y08", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z14", "label": "z14", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x00", "label": "x00", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x00_y00_XOR", "label": "x00_y00_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x00_y00_AND", "label": "x00_y00_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z00", "label": "z00", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y00", "label": "y00", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tmp", "label": "tmp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tmp_gph_AND", "label": "tmp_gph_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tmp_gph_XOR", "label": "tmp_gph_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gph", "label": "gph", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x29", "label": "x29", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x29_y29_XOR", "label": "x29_y29_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y29_x29_AND", "label": "y29_x29_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y29", "label": "y29", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z15", "label": "z15", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cvf", "label": "cvf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y33", "label": "y33", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y33_x33_AND", "label": "y33_x33_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y33_x33_XOR", "label": "y33_x33_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x33", "label": "x33", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tdd", "label": "tdd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y03", "label": "y03", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y03_x03_XOR", "label": "y03_x03_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x03_y03_AND", "label": "x03_y03_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x03", "label": "x03", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x04", "label": "x04", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x04_y04_XOR", "label": "x04_y04_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x04_y04_AND", "label": "x04_y04_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y04", "label": "y04", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hsw", "label": "hsw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vjf_hsw_OR", "label": "vjf_hsw_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gpt", "label": "gpt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "gpt_fcf_AND", "label": "gpt_fcf_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fcf_gpt_XOR", "label": "fcf_gpt_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fcf", "label": "fcf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y13", "label": "y13", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y13_x13_AND", "label": "y13_x13_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x13_y13_XOR", "label": "x13_y13_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "vjf", "label": "vjf", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x13", "label": "x13", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y32", "label": "y32", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y32_x32_XOR", "label": "y32_x32_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x32_y32_AND", "label": "x32_y32_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x32", "label": "x32", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fvm", "label": "fvm", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z38", "label": "z38", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z03", "label": "z03", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bsc", "label": "bsc", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "spd", "label": "spd", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "spd_rmv_OR", "label": "spd_rmv_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rmv", "label": "rmv", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cbn", "label": "cbn", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dvw_cbn_OR", "label": "dvw_cbn_OR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z37", "label": "z37", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z21", "label": "z21", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dvw", "label": "dvw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z01", "label": "z01", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "jct", "label": "jct", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "pnq", "label": "pnq", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z24", "label": "z24", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z26", "label": "z26", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z29", "label": "z29", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y35", "label": "y35", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y35_x35_AND", "label": "y35_x35_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x35_y35_XOR", "label": "x35_y35_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x35", "label": "x35", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z12", "label": "z12", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "tvw", "label": "tvw", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z16", "label": "z16", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z02", "label": "z02", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z22", "label": "z22", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z35", "label": "z35", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z08", "label": "z08", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "z42", "label": "z42", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y02", "label": "y02", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "y02_x02_XOR", "label": "y02_x02_XOR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x02_y02_AND", "label": "x02_y02_AND", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "x02", "label": "x02", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "x36", "to": "x36_y36_XOR", "width": 1}, {"arrows": "to", "from": "x36", "to": "y36_x36_AND", "width": 1}, {"arrows": "to", "from": "x36_y36_XOR", "to": "sfj", "width": 1}, {"arrows": "to", "from": "y36", "to": "x36_y36_XOR", "width": 1}, {"arrows": "to", "from": "y36", "to": "y36_x36_AND", "width": 1}, {"arrows": "to", "from": "sfj", "to": "sfj_fjm_XOR", "width": 1}, {"arrows": "to", "from": "sfj", "to": "sfj_fjm_AND", "width": 1}, {"arrows": "to", "from": "mpq", "to": "mpq_dvh_AND", "width": 1}, {"arrows": "to", "from": "mpq", "to": "dvh_mpq_XOR", "width": 1}, {"arrows": "to", "from": "mpq_dvh_AND", "to": "qgg", "width": 1}, {"arrows": "to", "from": "dvh", "to": "mpq_dvh_AND", "width": 1}, {"arrows": "to", "from": "dvh", "to": "dvh_mpq_XOR", "width": 1}, {"arrows": "to", "from": "qgg", "to": "qgg_vds_OR", "width": 1}, {"arrows": "to", "from": "sfj_fjm_XOR", "to": "z36", "width": 1}, {"arrows": "to", "from": "fjm", "to": "sfj_fjm_XOR", "width": 1}, {"arrows": "to", "from": "fjm", "to": "sfj_fjm_AND", "width": 1}, {"arrows": "to", "from": "y10", "to": "y10_x10_AND", "width": 1}, {"arrows": "to", "from": "y10", "to": "x10_y10_XOR", "width": 1}, {"arrows": "to", "from": "y10_x10_AND", "to": "pjt", "width": 1}, {"arrows": "to", "from": "x10", "to": "y10_x10_AND", "width": 1}, {"arrows": "to", "from": "x10", "to": "x10_y10_XOR", "width": 1}, {"arrows": "to", "from": "pjt", "to": "spf_pjt_OR", "width": 1}, {"arrows": "to", "from": "pds", "to": "pds_wsg_XOR", "width": 1}, {"arrows": "to", "from": "pds", "to": "pds_wsg_AND", "width": 1}, {"arrows": "to", "from": "pds_wsg_XOR", "to": "z25", "width": 1}, {"arrows": "to", "from": "wsg", "to": "pds_wsg_XOR", "width": 1}, {"arrows": "to", "from": "wsg", "to": "pds_wsg_AND", "width": 1}, {"arrows": "to", "from": "wjm", "to": "wjm_rhk_XOR", "width": 1}, {"arrows": "to", "from": "wjm", "to": "wjm_rhk_AND", "width": 1}, {"arrows": "to", "from": "wjm_rhk_XOR", "to": "z33", "width": 1}, {"arrows": "to", "from": "rhk", "to": "wjm_rhk_XOR", "width": 1}, {"arrows": "to", "from": "rhk", "to": "wjm_rhk_AND", "width": 1}, {"arrows": "to", "from": "dvd", "to": "dvd_kgf_OR", "width": 1}, {"arrows": "to", "from": "dvd_kgf_OR", "to": "ckp", "width": 1}, {"arrows": "to", "from": "kgf", "to": "dvd_kgf_OR", "width": 1}, {"arrows": "to", "from": "ckp", "to": "ckp_rds_AND", "width": 1}, {"arrows": "to", "from": "ckp", "to": "rds_ckp_XOR", "width": 1}, {"arrows": "to", "from": "tgj", "to": "tgj_mkm_XOR", "width": 1}, {"arrows": "to", "from": "tgj", "to": "mkm_tgj_AND", "width": 1}, {"arrows": "to", "from": "tgj_mkm_XOR", "to": "bjm", "width": 1}, {"arrows": "to", "from": "mkm", "to": "tgj_mkm_XOR", "width": 1}, {"arrows": "to", "from": "mkm", "to": "mkm_tgj_AND", "width": 1}, {"arrows": "to", "from": "bjm", "to": "btr_bjm_AND", "width": 1}, {"arrows": "to", "from": "bjm", "to": "btr_bjm_XOR", "width": 1}, {"arrows": "to", "from": "x40", "to": "x40_y40_AND", "width": 1}, {"arrows": "to", "from": "x40", "to": "y40_x40_XOR", "width": 1}, {"arrows": "to", "from": "x40_y40_AND", "to": "vkd", "width": 1}, {"arrows": "to", "from": "y40", "to": "x40_y40_AND", "width": 1}, {"arrows": "to", "from": "y40", "to": "y40_x40_XOR", "width": 1}, {"arrows": "to", "from": "vkd", "to": "hfj_vkd_OR", "width": 1}, {"arrows": "to", "from": "x28", "to": "x28_y28_XOR", "width": 1}, {"arrows": "to", "from": "x28", "to": "y28_x28_AND", "width": 1}, {"arrows": "to", "from": "x28_y28_XOR", "to": "vvc", "width": 1}, {"arrows": "to", "from": "y28", "to": "x28_y28_XOR", "width": 1}, {"arrows": "to", "from": "y28", "to": "y28_x28_AND", "width": 1}, {"arrows": "to", "from": "vvc", "to": "rwm_vvc_AND", "width": 1}, {"arrows": "to", "from": "vvc", "to": "vvc_rwm_XOR", "width": 1}, {"arrows": "to", "from": "y22", "to": "y22_x22_AND", "width": 1}, {"arrows": "to", "from": "y22", "to": "y22_x22_XOR", "width": 1}, {"arrows": "to", "from": "y22_x22_AND", "to": "tmq", "width": 1}, {"arrows": "to", "from": "x22", "to": "y22_x22_AND", "width": 1}, {"arrows": "to", "from": "x22", "to": "y22_x22_XOR", "width": 1}, {"arrows": "to", "from": "tmq", "to": "tdg_tmq_OR", "width": 1}, {"arrows": "to", "from": "gdw", "to": "gdw_tns_AND", "width": 1}, {"arrows": "to", "from": "gdw", "to": "tns_gdw_XOR", "width": 1}, {"arrows": "to", "from": "gdw_tns_AND", "to": "dvd", "width": 1}, {"arrows": "to", "from": "tns", "to": "gdw_tns_AND", "width": 1}, {"arrows": "to", "from": "tns", "to": "tns_gdw_XOR", "width": 1}, {"arrows": "to", "from": "rwm", "to": "rwm_vvc_AND", "width": 1}, {"arrows": "to", "from": "rwm", "to": "vvc_rwm_XOR", "width": 1}, {"arrows": "to", "from": "rwm_vvc_AND", "to": "cdj", "width": 1}, {"arrows": "to", "from": "cdj", "to": "tvw_cdj_OR", "width": 1}, {"arrows": "to", "from": "mwg", "to": "mwg_hmm_XOR", "width": 1}, {"arrows": "to", "from": "mwg", "to": "mwg_hmm_AND", "width": 1}, {"arrows": "to", "from": "mwg_hmm_XOR", "to": "z34", "width": 1}, {"arrows": "to", "from": "hmm", "to": "mwg_hmm_XOR", "width": 1}, {"arrows": "to", "from": "hmm", "to": "mwg_hmm_AND", "width": 1}, {"arrows": "to", "from": "dtw", "to": "dtw_tgb_AND", "width": 1}, {"arrows": "to", "from": "dtw", "to": "tgb_dtw_XOR", "width": 1}, {"arrows": "to", "from": "dtw_tgb_AND", "to": "gqg", "width": 1}, {"arrows": "to", "from": "tgb", "to": "dtw_tgb_AND", "width": 1}, {"arrows": "to", "from": "tgb", "to": "tgb_dtw_XOR", "width": 1}, {"arrows": "to", "from": "gqg", "to": "bsc_gqg_OR", "width": 1}, {"arrows": "to", "from": "y20", "to": "y20_x20_AND", "width": 1}, {"arrows": "to", "from": "y20", "to": "y20_x20_XOR", "width": 1}, {"arrows": "to", "from": "y20_x20_AND", "to": "pnb", "width": 1}, {"arrows": "to", "from": "x20", "to": "y20_x20_AND", "width": 1}, {"arrows": "to", "from": "x20", "to": "y20_x20_XOR", "width": 1}, {"arrows": "to", "from": "pnb", "to": "tch_pnb_OR", "width": 1}, {"arrows": "to", "from": "dcn", "to": "dcn_qmb_OR", "width": 1}, {"arrows": "to", "from": "dcn_qmb_OR", "to": "wsg", "width": 1}, {"arrows": "to", "from": "qmb", "to": "dcn_qmb_OR", "width": 1}, {"arrows": "to", "from": "hjv", "to": "hjv_vwc_OR", "width": 1}, {"arrows": "to", "from": "hjv_vwc_OR", "to": "fsw", "width": 1}, {"arrows": "to", "from": "vwc", "to": "hjv_vwc_OR", "width": 1}, {"arrows": "to", "from": "fsw", "to": "fsw_nhj_XOR", "width": 1}, {"arrows": "to", "from": "fsw", "to": "fsw_nhj_AND", "width": 1}, {"arrows": "to", "from": "x26", "to": "x26_y26_XOR", "width": 1}, {"arrows": "to", "from": "x26", "to": "y26_x26_AND", "width": 1}, {"arrows": "to", "from": "x26_y26_XOR", "to": "nvr", "width": 1}, {"arrows": "to", "from": "y26", "to": "x26_y26_XOR", "width": 1}, {"arrows": "to", "from": "y26", "to": "y26_x26_AND", "width": 1}, {"arrows": "to", "from": "nvr", "to": "frt_nvr_OR", "width": 1}, {"arrows": "to", "from": "x41", "to": "x41_y41_XOR", "width": 1}, {"arrows": "to", "from": "x41", "to": "x41_y41_AND", "width": 1}, {"arrows": "to", "from": "x41_y41_XOR", "to": "cjs", "width": 1}, {"arrows": "to", "from": "y41", "to": "x41_y41_XOR", "width": 1}, {"arrows": "to", "from": "y41", "to": "x41_y41_AND", "width": 1}, {"arrows": "to", "from": "cjs", "to": "cgh_cjs_XOR", "width": 1}, {"arrows": "to", "from": "cjs", "to": "cgh_cjs_AND", "width": 1}, {"arrows": "to", "from": "dwj", "to": "dwj_qvk_OR", "width": 1}, {"arrows": "to", "from": "dwj_qvk_OR", "to": "z45", "width": 1}, {"arrows": "to", "from": "qvk", "to": "dwj_qvk_OR", "width": 1}, {"arrows": "to", "from": "x27", "to": "x27_y27_XOR", "width": 1}, {"arrows": "to", "from": "x27", "to": "x27_y27_AND", "width": 1}, {"arrows": "to", "from": "x27_y27_XOR", "to": "crd", "width": 1}, {"arrows": "to", "from": "y27", "to": "x27_y27_XOR", "width": 1}, {"arrows": "to", "from": "y27", "to": "x27_y27_AND", "width": 1}, {"arrows": "to", "from": "crd", "to": "bpb_crd_XOR", "width": 1}, {"arrows": "to", "from": "crd", "to": "bpb_crd_AND", "width": 1}, {"arrows": "to", "from": "whv", "to": "whv_ngt_XOR", "width": 1}, {"arrows": "to", "from": "whv", "to": "whv_ngt_AND", "width": 1}, {"arrows": "to", "from": "whv_ngt_XOR", "to": "z43", "width": 1}, {"arrows": "to", "from": "ngt", "to": "whv_ngt_XOR", "width": 1}, {"arrows": "to", "from": "ngt", "to": "whv_ngt_AND", "width": 1}, {"arrows": "to", "from": "rfg", "to": "rfg_mwk_AND", "width": 1}, {"arrows": "to", "from": "rfg", "to": "mwk_rfg_XOR", "width": 1}, {"arrows": "to", "from": "rfg_mwk_AND", "to": "tch", "width": 1}, {"arrows": "to", "from": "mwk", "to": "rfg_mwk_AND", "width": 1}, {"arrows": "to", "from": "mwk", "to": "mwk_rfg_XOR", "width": 1}, {"arrows": "to", "from": "tch", "to": "tch_pnb_OR", "width": 1}, {"arrows": "to", "from": "bgt", "to": "bgt_qjc_XOR", "width": 1}, {"arrows": "to", "from": "bgt", "to": "bgt_qjc_AND", "width": 1}, {"arrows": "to", "from": "bgt_qjc_XOR", "to": "skf", "width": 1}, {"arrows": "to", "from": "qjc", "to": "bgt_qjc_XOR", "width": 1}, {"arrows": "to", "from": "qjc", "to": "bgt_qjc_AND", "width": 1}, {"arrows": "to", "from": "skf", "to": "tgm_skf_OR", "width": 1}, {"arrows": "to", "from": "frt", "to": "frt_nvr_OR", "width": 1}, {"arrows": "to", "from": "frt_nvr_OR", "to": "bpb", "width": 1}, {"arrows": "to", "from": "bpb", "to": "bpb_crd_XOR", "width": 1}, {"arrows": "to", "from": "bpb", "to": "bpb_crd_AND", "width": 1}, {"arrows": "to", "from": "y34", "to": "y34_x34_AND", "width": 1}, {"arrows": "to", "from": "y34", "to": "x34_y34_XOR", "width": 1}, {"arrows": "to", "from": "y34_x34_AND", "to": "fnf", "width": 1}, {"arrows": "to", "from": "x34", "to": "y34_x34_AND", "width": 1}, {"arrows": "to", "from": "x34", "to": "x34_y34_XOR", "width": 1}, {"arrows": "to", "from": "fnf", "to": "fnf_mhg_OR", "width": 1}, {"arrows": "to", "from": "y40_x40_XOR", "to": "pmm", "width": 1}, {"arrows": "to", "from": "pmm", "to": "tgv_pmm_XOR", "width": 1}, {"arrows": "to", "from": "pmm", "to": "tgv_pmm_AND", "width": 1}, {"arrows": "to", "from": "sws", "to": "sws_tpq_AND", "width": 1}, {"arrows": "to", "from": "sws", "to": "tpq_sws_XOR", "width": 1}, {"arrows": "to", "from": "sws_tpq_AND", "to": "hjv", "width": 1}, {"arrows": "to", "from": "tpq", "to": "sws_tpq_AND", "width": 1}, {"arrows": "to", "from": "tpq", "to": "tpq_sws_XOR", "width": 1}, {"arrows": "to", "from": "pcn", "to": "pcn_vbm_OR", "width": 1}, {"arrows": "to", "from": "pcn_vbm_OR", "to": "mwg", "width": 1}, {"arrows": "to", "from": "vbm", "to": "pcn_vbm_OR", "width": 1}, {"arrows": "to", "from": "mkm_tgj_AND", "to": "njc", "width": 1}, {"arrows": "to", "from": "njc", "to": "njc_kbk_OR", "width": 1}, {"arrows": "to", "from": "jjb", "to": "jjb_vkw_OR", "width": 1}, {"arrows": "to", "from": "jjb_vkw_OR", "to": "rhk", "width": 1}, {"arrows": "to", "from": "vkw", "to": "jjb_vkw_OR", "width": 1}, {"arrows": "to", "from": "fdb", "to": "fdb_smd_XOR", "width": 1}, {"arrows": "to", "from": "fdb", "to": "fdb_smd_AND", "width": 1}, {"arrows": "to", "from": "fdb_smd_XOR", "to": "z30", "width": 1}, {"arrows": "to", "from": "smd", "to": "fdb_smd_XOR", "width": 1}, {"arrows": "to", "from": "smd", "to": "fdb_smd_AND", "width": 1}, {"arrows": "to", "from": "ghh", "to": "ghh_gnn_AND", "width": 1}, {"arrows": "to", "from": "ghh", "to": "ghh_gnn_XOR", "width": 1}, {"arrows": "to", "from": "ghh_gnn_AND", "to": "qhq", "width": 1}, {"arrows": "to", "from": "gnn", "to": "ghh_gnn_AND", "width": 1}, {"arrows": "to", "from": "gnn", "to": "ghh_gnn_XOR", "width": 1}, {"arrows": "to", "from": "qhq", "to": "nck_qhq_OR", "width": 1}, {"arrows": "to", "from": "ckp_rds_AND", "to": "spf", "width": 1}, {"arrows": "to", "from": "rds", "to": "ckp_rds_AND", "width": 1}, {"arrows": "to", "from": "rds", "to": "rds_ckp_XOR", "width": 1}, {"arrows": "to", "from": "spf", "to": "spf_pjt_OR", "width": 1}, {"arrows": "to", "from": "dnk", "to": "dnk_drk_AND", "width": 1}, {"arrows": "to", "from": "dnk", "to": "dnk_drk_XOR", "width": 1}, {"arrows": "to", "from": "dnk_drk_AND", "to": "tdg", "width": 1}, {"arrows": "to", "from": "drk", "to": "dnk_drk_AND", "width": 1}, {"arrows": "to", "from": "drk", "to": "dnk_drk_XOR", "width": 1}, {"arrows": "to", "from": "tdg", "to": "tdg_tmq_OR", "width": 1}, {"arrows": "to", "from": "x10_y10_XOR", "to": "rds", "width": 1}, {"arrows": "to", "from": "wrg", "to": "wrg_rtn_OR", "width": 1}, {"arrows": "to", "from": "wrg_rtn_OR", "to": "rbk", "width": 1}, {"arrows": "to", "from": "rtn", "to": "wrg_rtn_OR", "width": 1}, {"arrows": "to", "from": "rbk", "to": "pmv_rbk_AND", "width": 1}, {"arrows": "to", "from": "rbk", "to": "pmv_rbk_XOR", "width": 1}, {"arrows": "to", "from": "y19", "to": "y19_x19_AND", "width": 1}, {"arrows": "to", "from": "y19", "to": "x19_y19_XOR", "width": 1}, {"arrows": "to", "from": "y19_x19_AND", "to": "kgh", "width": 1}, {"arrows": "to", "from": "x19", "to": "y19_x19_AND", "width": 1}, {"arrows": "to", "from": "x19", "to": "x19_y19_XOR", "width": 1}, {"arrows": "to", "from": "kgh", "to": "kgh_bqj_OR", "width": 1}, {"arrows": "to", "from": "sfj_fjm_AND", "to": "vnm", "width": 1}, {"arrows": "to", "from": "vnm", "to": "vnm_bkm_OR", "width": 1}, {"arrows": "to", "from": "tpq_sws_XOR", "to": "z05", "width": 1}, {"arrows": "to", "from": "x14", "to": "x14_y14_AND", "width": 1}, {"arrows": "to", "from": "x14", "to": "x14_y14_XOR", "width": 1}, {"arrows": "to", "from": "x14_y14_AND", "to": "rmm", "width": 1}, {"arrows": "to", "from": "y14", "to": "x14_y14_AND", "width": 1}, {"arrows": "to", "from": "y14", "to": "x14_y14_XOR", "width": 1}, {"arrows": "to", "from": "rmm", "to": "rmm_tst_OR", "width": 1}, {"arrows": "to", "from": "qkf", "to": "qkf_wkr_AND", "width": 1}, {"arrows": "to", "from": "qkf", "to": "qkf_wkr_XOR", "width": 1}, {"arrows": "to", "from": "qkf_wkr_AND", "to": "frt", "width": 1}, {"arrows": "to", "from": "wkr", "to": "qkf_wkr_AND", "width": 1}, {"arrows": "to", "from": "wkr", "to": "qkf_wkr_XOR", "width": 1}, {"arrows": "to", "from": "y07", "to": "y07_x07_XOR", "width": 1}, {"arrows": "to", "from": "y07", "to": "y07_x07_AND", "width": 1}, {"arrows": "to", "from": "y07_x07_XOR", "to": "tgj", "width": 1}, {"arrows": "to", "from": "x07", "to": "y07_x07_XOR", "width": 1}, {"arrows": "to", "from": "x07", "to": "y07_x07_AND", "width": 1}, {"arrows": "to", "from": "fjf", "to": "fjf_bmg_OR", "width": 1}, {"arrows": "to", "from": "fjf_bmg_OR", "to": "nbp", "width": 1}, {"arrows": "to", "from": "bmg", "to": "fjf_bmg_OR", "width": 1}, {"arrows": "to", "from": "nbp", "to": "pnh_nbp_AND", "width": 1}, {"arrows": "to", "from": "nbp", "to": "pnh_nbp_XOR", "width": 1}, {"arrows": "to", "from": "fsw_nhj_XOR", "to": "z06", "width": 1}, {"arrows": "to", "from": "nhj", "to": "fsw_nhj_XOR", "width": 1}, {"arrows": "to", "from": "nhj", "to": "fsw_nhj_AND", "width": 1}, {"arrows": "to", "from": "fvk", "to": "fvk_pbn_AND", "width": 1}, {"arrows": "to", "from": "fvk", "to": "fvk_pbn_XOR", "width": 1}, {"arrows": "to", "from": "fvk_pbn_AND", "to": "gpv", "width": 1}, {"arrows": "to", "from": "pbn", "to": "fvk_pbn_AND", "width": 1}, {"arrows": "to", "from": "pbn", "to": "fvk_pbn_XOR", "width": 1}, {"arrows": "to", "from": "gpv", "to": "gpv_jrk_OR", "width": 1}, {"arrows": "to", "from": "y18", "to": "y18_x18_AND", "width": 1}, {"arrows": "to", "from": "y18", "to": "y18_x18_XOR", "width": 1}, {"arrows": "to", "from": "y18_x18_AND", "to": "z18", "width": 1}, {"arrows": "to", "from": "x18", "to": "y18_x18_AND", "width": 1}, {"arrows": "to", "from": "x18", "to": "y18_x18_XOR", "width": 1}, {"arrows": "to", "from": "x21", "to": "x21_y21_AND", "width": 1}, {"arrows": "to", "from": "x21", "to": "x21_y21_XOR", "width": 1}, {"arrows": "to", "from": "x21_y21_AND", "to": "vfr", "width": 1}, {"arrows": "to", "from": "y21", "to": "x21_y21_AND", "width": 1}, {"arrows": "to", "from": "y21", "to": "x21_y21_XOR", "width": 1}, {"arrows": "to", "from": "vfr", "to": "djg_vfr_OR", "width": 1}, {"arrows": "to", "from": "y24", "to": "y24_x24_AND", "width": 1}, {"arrows": "to", "from": "y24", "to": "y24_x24_XOR", "width": 1}, {"arrows": "to", "from": "y24_x24_AND", "to": "qmb", "width": 1}, {"arrows": "to", "from": "x24", "to": "y24_x24_AND", "width": 1}, {"arrows": "to", "from": "x24", "to": "y24_x24_XOR", "width": 1}, {"arrows": "to", "from": "vnm_bkm_OR", "to": "fjq", "width": 1}, {"arrows": "to", "from": "bkm", "to": "vnm_bkm_OR", "width": 1}, {"arrows": "to", "from": "fjq", "to": "fjq_djd_AND", "width": 1}, {"arrows": "to", "from": "fjq", "to": "fjq_djd_XOR", "width": 1}, {"arrows": "to", "from": "x27_y27_AND", "to": "qcg", "width": 1}, {"arrows": "to", "from": "qcg", "to": "hcb_qcg_OR", "width": 1}, {"arrows": "to", "from": "gtk", "to": "gtk_cck_OR", "width": 1}, {"arrows": "to", "from": "gtk_cck_OR", "to": "fjm", "width": 1}, {"arrows": "to", "from": "cck", "to": "gtk_cck_OR", "width": 1}, {"arrows": "to", "from": "y22_x22_XOR", "to": "dnk", "width": 1}, {"arrows": "to", "from": "pnh", "to": "pnh_nbp_AND", "width": 1}, {"arrows": "to", "from": "pnh", "to": "pnh_nbp_XOR", "width": 1}, {"arrows": "to", "from": "pnh_nbp_AND", "to": "gms", "width": 1}, {"arrows": "to", "from": "gms", "to": "jct_gms_OR", "width": 1}, {"arrows": "to", "from": "vvc_rwm_XOR", "to": "z28", "width": 1}, {"arrows": "to", "from": "x38", "to": "x38_y38_AND", "width": 1}, {"arrows": "to", "from": "x38", "to": "x38_y38_XOR", "width": 1}, {"arrows": "to", "from": "x38_y38_AND", "to": "shn", "width": 1}, {"arrows": "to", "from": "y38", "to": "x38_y38_AND", "width": 1}, {"arrows": "to", "from": "y38", "to": "x38_y38_XOR", "width": 1}, {"arrows": "to", "from": "shn", "to": "qrb_shn_OR", "width": 1}, {"arrows": "to", "from": "wkd", "to": "wkd_mbw_OR", "width": 1}, {"arrows": "to", "from": "wkd_mbw_OR", "to": "tcb", "width": 1}, {"arrows": "to", "from": "mbw", "to": "wkd_mbw_OR", "width": 1}, {"arrows": "to", "from": "tcb", "to": "tcb_jkh_XOR", "width": 1}, {"arrows": "to", "from": "tcb", "to": "tcb_jkh_AND", "width": 1}, {"arrows": "to", "from": "x01", "to": "x01_y01_XOR", "width": 1}, {"arrows": "to", "from": "x01", "to": "x01_y01_AND", "width": 1}, {"arrows": "to", "from": "x01_y01_XOR", "to": "ghh", "width": 1}, {"arrows": "to", "from": "y01", "to": "x01_y01_XOR", "width": 1}, {"arrows": "to", "from": "y01", "to": "x01_y01_AND", "width": 1}, {"arrows": "to", "from": "y26_x26_AND", "to": "wkr", "width": 1}, {"arrows": "to", "from": "tgm", "to": "tgm_skf_OR", "width": 1}, {"arrows": "to", "from": "tgm_skf_OR", "to": "rrq", "width": 1}, {"arrows": "to", "from": "rrq", "to": "scd_rrq_AND", "width": 1}, {"arrows": "to", "from": "rrq", "to": "scd_rrq_XOR", "width": 1}, {"arrows": "to", "from": "pth", "to": "pth_vjb_XOR", "width": 1}, {"arrows": "to", "from": "pth", "to": "pth_vjb_AND", "width": 1}, {"arrows": "to", "from": "pth_vjb_XOR", "to": "z39", "width": 1}, {"arrows": "to", "from": "vjb", "to": "pth_vjb_XOR", "width": 1}, {"arrows": "to", "from": "vjb", "to": "pth_vjb_AND", "width": 1}, {"arrows": "to", "from": "x09", "to": "x09_y09_AND", "width": 1}, {"arrows": "to", "from": "x09", "to": "y09_x09_XOR", "width": 1}, {"arrows": "to", "from": "x09_y09_AND", "to": "kgf", "width": 1}, {"arrows": "to", "from": "y09", "to": "x09_y09_AND", "width": 1}, {"arrows": "to", "from": "y09", "to": "y09_x09_XOR", "width": 1}, {"arrows": "to", "from": "dkc", "to": "dkc_tjh_XOR", "width": 1}, {"arrows": "to", "from": "dkc", "to": "tjh_dkc_AND", "width": 1}, {"arrows": "to", "from": "dkc_tjh_XOR", "to": "z31", "width": 1}, {"arrows": "to", "from": "tjh", "to": "dkc_tjh_XOR", "width": 1}, {"arrows": "to", "from": "tjh", "to": "tjh_dkc_AND", "width": 1}, {"arrows": "to", "from": "rds_ckp_XOR", "to": "z10", "width": 1}, {"arrows": "to", "from": "dvh_mpq_XOR", "to": "z04", "width": 1}, {"arrows": "to", "from": "x19_y19_XOR", "to": "scd", "width": 1}, {"arrows": "to", "from": "scd", "to": "scd_rrq_AND", "width": 1}, {"arrows": "to", "from": "scd", "to": "scd_rrq_XOR", "width": 1}, {"arrows": "to", "from": "bht", "to": "bht_jkm_AND", "width": 1}, {"arrows": "to", "from": "bht", "to": "bht_jkm_XOR", "width": 1}, {"arrows": "to", "from": "bht_jkm_AND", "to": "qrb", "width": 1}, {"arrows": "to", "from": "jkm", "to": "bht_jkm_AND", "width": 1}, {"arrows": "to", "from": "jkm", "to": "bht_jkm_XOR", "width": 1}, {"arrows": "to", "from": "qrb", "to": "qrb_shn_OR", "width": 1}, {"arrows": "to", "from": "y39", "to": "y39_x39_AND", "width": 1}, {"arrows": "to", "from": "y39", "to": "y39_x39_XOR", "width": 1}, {"arrows": "to", "from": "y39_x39_AND", "to": "jmc", "width": 1}, {"arrows": "to", "from": "x39", "to": "y39_x39_AND", "width": 1}, {"arrows": "to", "from": "x39", "to": "y39_x39_XOR", "width": 1}, {"arrows": "to", "from": "jmc", "to": "cvf_jmc_OR", "width": 1}, {"arrows": "to", "from": "x30", "to": "x30_y30_AND", "width": 1}, {"arrows": "to", "from": "x30", "to": "x30_y30_XOR", "width": 1}, {"arrows": "to", "from": "x30_y30_AND", "to": "djm", "width": 1}, {"arrows": "to", "from": "y30", "to": "x30_y30_AND", "width": 1}, {"arrows": "to", "from": "y30", "to": "x30_y30_XOR", "width": 1}, {"arrows": "to", "from": "djm", "to": "sst_djm_OR", "width": 1}, {"arrows": "to", "from": "mwg_hmm_AND", "to": "mhg", "width": 1}, {"arrows": "to", "from": "mhg", "to": "fnf_mhg_OR", "width": 1}, {"arrows": "to", "from": "tcb_jkh_XOR", "to": "z44", "width": 1}, {"arrows": "to", "from": "jkh", "to": "tcb_jkh_XOR", "width": 1}, {"arrows": "to", "from": "jkh", "to": "tcb_jkh_AND", "width": 1}, {"arrows": "to", "from": "x37", "to": "x37_y37_XOR", "width": 1}, {"arrows": "to", "from": "x37", "to": "x37_y37_AND", "width": 1}, {"arrows": "to", "from": "x37_y37_XOR", "to": "djd", "width": 1}, {"arrows": "to", "from": "y37", "to": "x37_y37_XOR", "width": 1}, {"arrows": "to", "from": "y37", "to": "x37_y37_AND", "width": 1}, {"arrows": "to", "from": "djd", "to": "fjq_djd_AND", "width": 1}, {"arrows": "to", "from": "djd", "to": "fjq_djd_XOR", "width": 1}, {"arrows": "to", "from": "gpv_jrk_OR", "to": "whv", "width": 1}, {"arrows": "to", "from": "jrk", "to": "gpv_jrk_OR", "width": 1}, {"arrows": "to", "from": "qgg_vds_OR", "to": "sws", "width": 1}, {"arrows": "to", "from": "vds", "to": "qgg_vds_OR", "width": 1}, {"arrows": "to", "from": "fwk", "to": "fwk_msp_AND", "width": 1}, {"arrows": "to", "from": "fwk", "to": "msp_fwk_XOR", "width": 1}, {"arrows": "to", "from": "fwk_msp_AND", "to": "vbs", "width": 1}, {"arrows": "to", "from": "msp", "to": "fwk_msp_AND", "width": 1}, {"arrows": "to", "from": "msp", "to": "msp_fwk_XOR", "width": 1}, {"arrows": "to", "from": "vbs", "to": "gpn_vbs_OR", "width": 1}, {"arrows": "to", "from": "y11", "to": "y11_x11_AND", "width": 1}, {"arrows": "to", "from": "y11", "to": "x11_y11_XOR", "width": 1}, {"arrows": "to", "from": "y11_x11_AND", "to": "wpw", "width": 1}, {"arrows": "to", "from": "x11", "to": "y11_x11_AND", "width": 1}, {"arrows": "to", "from": "x11", "to": "x11_y11_XOR", "width": 1}, {"arrows": "to", "from": "wpw", "to": "wpw_pnq_OR", "width": 1}, {"arrows": "to", "from": "fnf_mhg_OR", "to": "bfg", "width": 1}, {"arrows": "to", "from": "bfg", "to": "bfg_tdd_AND", "width": 1}, {"arrows": "to", "from": "bfg", "to": "bfg_tdd_XOR", "width": 1}, {"arrows": "to", "from": "vhb", "to": "vhb_bpf_AND", "width": 1}, {"arrows": "to", "from": "vhb", "to": "vhb_bpf_XOR", "width": 1}, {"arrows": "to", "from": "vhb_bpf_AND", "to": "tst", "width": 1}, {"arrows": "to", "from": "bpf", "to": "vhb_bpf_AND", "width": 1}, {"arrows": "to", "from": "bpf", "to": "vhb_bpf_XOR", "width": 1}, {"arrows": "to", "from": "tst", "to": "rmm_tst_OR", "width": 1}, {"arrows": "to", "from": "gpn", "to": "gpn_vbs_OR", "width": 1}, {"arrows": "to", "from": "gpn_vbs_OR", "to": "gmp", "width": 1}, {"arrows": "to", "from": "gmp", "to": "gmp_rgn_AND", "width": 1}, {"arrows": "to", "from": "gmp", "to": "gmp_rgn_XOR", "width": 1}, {"arrows": "to", "from": "cgh", "to": "cgh_cjs_XOR", "width": 1}, {"arrows": "to", "from": "cgh", "to": "cgh_cjs_AND", "width": 1}, {"arrows": "to", "from": "cgh_cjs_XOR", "to": "z41", "width": 1}, {"arrows": "to", "from": "x23", "to": "x23_y23_AND", "width": 1}, {"arrows": "to", "from": "x23", "to": "y23_x23_XOR", "width": 1}, {"arrows": "to", "from": "x23_y23_AND", "to": "wjw", "width": 1}, {"arrows": "to", "from": "y23", "to": "x23_y23_AND", "width": 1}, {"arrows": "to", "from": "y23", "to": "y23_x23_XOR", "width": 1}, {"arrows": "to", "from": "wjw", "to": "wjw_hqw_OR", "width": 1}, {"arrows": "to", "from": "mwk_rfg_XOR", "to": "z20", "width": 1}, {"arrows": "to", "from": "y07_x07_AND", "to": "kbk", "width": 1}, {"arrows": "to", "from": "kbk", "to": "njc_kbk_OR", "width": 1}, {"arrows": "to", "from": "x16", "to": "x16_y16_AND", "width": 1}, {"arrows": "to", "from": "x16", "to": "y16_x16_XOR", "width": 1}, {"arrows": "to", "from": "x16_y16_AND", "to": "fjf", "width": 1}, {"arrows": "to", "from": "y16", "to": "x16_y16_AND", "width": 1}, {"arrows": "to", "from": "y16", "to": "y16_x16_XOR", "width": 1}, {"arrows": "to", "from": "x37_y37_AND", "to": "gvr", "width": 1}, {"arrows": "to", "from": "gvr", "to": "fvp_gvr_OR", "width": 1}, {"arrows": "to", "from": "tgv", "to": "tgv_pmm_XOR", "width": 1}, {"arrows": "to", "from": "tgv", "to": "tgv_pmm_AND", "width": 1}, {"arrows": "to", "from": "tgv_pmm_XOR", "to": "z40", "width": 1}, {"arrows": "to", "from": "y17", "to": "y17_x17_XOR", "width": 1}, {"arrows": "to", "from": "y17", "to": "x17_y17_AND", "width": 1}, {"arrows": "to", "from": "y17_x17_XOR", "to": "pnh", "width": 1}, {"arrows": "to", "from": "x17", "to": "y17_x17_XOR", "width": 1}, {"arrows": "to", "from": "x17", "to": "x17_y17_AND", "width": 1}, {"arrows": "to", "from": "x43", "to": "x43_y43_XOR", "width": 1}, {"arrows": "to", "from": "x43", "to": "y43_x43_AND", "width": 1}, {"arrows": "to", "from": "x43_y43_XOR", "to": "ngt", "width": 1}, {"arrows": "to", "from": "y43", "to": "x43_y43_XOR", "width": 1}, {"arrows": "to", "from": "y43", "to": "y43_x43_AND", "width": 1}, {"arrows": "to", "from": "njc_kbk_OR", "to": "z07", "width": 1}, {"arrows": "to", "from": "y18_x18_XOR", "to": "qjc", "width": 1}, {"arrows": "to", "from": "y31", "to": "y31_x31_XOR", "width": 1}, {"arrows": "to", "from": "y31", "to": "y31_x31_AND", "width": 1}, {"arrows": "to", "from": "y31_x31_XOR", "to": "tjh", "width": 1}, {"arrows": "to", "from": "x31", "to": "y31_x31_XOR", "width": 1}, {"arrows": "to", "from": "x31", "to": "y31_x31_AND", "width": 1}, {"arrows": "to", "from": "tch_pnb_OR", "to": "swd", "width": 1}, {"arrows": "to", "from": "swd", "to": "bcv_swd_AND", "width": 1}, {"arrows": "to", "from": "swd", "to": "swd_bcv_XOR", "width": 1}, {"arrows": "to", "from": "x15", "to": "x15_y15_XOR", "width": 1}, {"arrows": "to", "from": "x15", "to": "y15_x15_AND", "width": 1}, {"arrows": "to", "from": "x15_y15_XOR", "to": "tgb", "width": 1}, {"arrows": "to", "from": "y15", "to": "x15_y15_XOR", "width": 1}, {"arrows": "to", "from": "y15", "to": "y15_x15_AND", "width": 1}, {"arrows": "to", "from": "x06", "to": "x06_y06_XOR", "width": 1}, {"arrows": "to", "from": "x06", "to": "y06_x06_AND", "width": 1}, {"arrows": "to", "from": "x06_y06_XOR", "to": "nhj", "width": 1}, {"arrows": "to", "from": "y06", "to": "x06_y06_XOR", "width": 1}, {"arrows": "to", "from": "y06", "to": "y06_x06_AND", "width": 1}, {"arrows": "to", "from": "tns_gdw_XOR", "to": "z09", "width": 1}, {"arrows": "to", "from": "x01_y01_AND", "to": "nck", "width": 1}, {"arrows": "to", "from": "nck", "to": "nck_qhq_OR", "width": 1}, {"arrows": "to", "from": "bpb_crd_XOR", "to": "z27", "width": 1}, {"arrows": "to", "from": "bcv", "to": "bcv_swd_AND", "width": 1}, {"arrows": "to", "from": "bcv", "to": "swd_bcv_XOR", "width": 1}, {"arrows": "to", "from": "bcv_swd_AND", "to": "djg", "width": 1}, {"arrows": "to", "from": "djg", "to": "djg_vfr_OR", "width": 1}, {"arrows": "to", "from": "bpb_crd_AND", "to": "hcb", "width": 1}, {"arrows": "to", "from": "hcb", "to": "hcb_qcg_OR", "width": 1}, {"arrows": "to", "from": "y42", "to": "y42_x42_AND", "width": 1}, {"arrows": "to", "from": "y42", "to": "y42_x42_XOR", "width": 1}, {"arrows": "to", "from": "y42_x42_AND", "to": "jrk", "width": 1}, {"arrows": "to", "from": "x42", "to": "y42_x42_AND", "width": 1}, {"arrows": "to", "from": "x42", "to": "y42_x42_XOR", "width": 1}, {"arrows": "to", "from": "fjq_djd_AND", "to": "fvp", "width": 1}, {"arrows": "to", "from": "fvp", "to": "fvp_gvr_OR", "width": 1}, {"arrows": "to", "from": "tgv_pmm_AND", "to": "hfj", "width": 1}, {"arrows": "to", "from": "hfj", "to": "hfj_vkd_OR", "width": 1}, {"arrows": "to", "from": "x44", "to": "x44_y44_XOR", "width": 1}, {"arrows": "to", "from": "x44", "to": "x44_y44_AND", "width": 1}, {"arrows": "to", "from": "x44_y44_XOR", "to": "jkh", "width": 1}, {"arrows": "to", "from": "y44", "to": "x44_y44_XOR", "width": 1}, {"arrows": "to", "from": "y44", "to": "x44_y44_AND", "width": 1}, {"arrows": "to", "from": "gwd", "to": "gwd_sbg_XOR", "width": 1}, {"arrows": "to", "from": "gwd", "to": "gwd_sbg_AND", "width": 1}, {"arrows": "to", "from": "gwd_sbg_XOR", "to": "z11", "width": 1}, {"arrows": "to", "from": "sbg", "to": "gwd_sbg_XOR", "width": 1}, {"arrows": "to", "from": "sbg", "to": "gwd_sbg_AND", "width": 1}, {"arrows": "to", "from": "y23_x23_XOR", "to": "vft", "width": 1}, {"arrows": "to", "from": "vft", "to": "vft_hkk_AND", "width": 1}, {"arrows": "to", "from": "vft", "to": "vft_hkk_XOR", "width": 1}, {"arrows": "to", "from": "gmp_rgn_AND", "to": "djp", "width": 1}, {"arrows": "to", "from": "rgn", "to": "gmp_rgn_AND", "width": 1}, {"arrows": "to", "from": "rgn", "to": "gmp_rgn_XOR", "width": 1}, {"arrows": "to", "from": "djp", "to": "djp_wwt_OR", "width": 1}, {"arrows": "to", "from": "vft_hkk_AND", "to": "hqw", "width": 1}, {"arrows": "to", "from": "hkk", "to": "vft_hkk_AND", "width": 1}, {"arrows": "to", "from": "hkk", "to": "vft_hkk_XOR", "width": 1}, {"arrows": "to", "from": "hqw", "to": "wjw_hqw_OR", "width": 1}, {"arrows": "to", "from": "y24_x24_XOR", "to": "knh", "width": 1}, {"arrows": "to", "from": "knh", "to": "wbw_knh_XOR", "width": 1}, {"arrows": "to", "from": "knh", "to": "knh_wbw_AND", "width": 1}, {"arrows": "to", "from": "x30_y30_XOR", "to": "smd", "width": 1}, {"arrows": "to", "from": "x34_y34_XOR", "to": "hmm", "width": 1}, {"arrows": "to", "from": "tjh_dkc_AND", "to": "bkc", "width": 1}, {"arrows": "to", "from": "bkc", "to": "mqr_bkc_OR", "width": 1}, {"arrows": "to", "from": "rmm_tst_OR", "to": "dtw", "width": 1}, {"arrows": "to", "from": "djp_wwt_OR", "to": "dvh", "width": 1}, {"arrows": "to", "from": "wwt", "to": "djp_wwt_OR", "width": 1}, {"arrows": "to", "from": "y25", "to": "y25_x25_AND", "width": 1}, {"arrows": "to", "from": "y25", "to": "y25_x25_XOR", "width": 1}, {"arrows": "to", "from": "y25_x25_AND", "to": "kvp", "width": 1}, {"arrows": "to", "from": "x25", "to": "y25_x25_AND", "width": 1}, {"arrows": "to", "from": "x25", "to": "y25_x25_XOR", "width": 1}, {"arrows": "to", "from": "kvp", "to": "kvp_qsm_OR", "width": 1}, {"arrows": "to", "from": "y31_x31_AND", "to": "mqr", "width": 1}, {"arrows": "to", "from": "mqr", "to": "mqr_bkc_OR", "width": 1}, {"arrows": "to", "from": "fdb_smd_AND", "to": "sst", "width": 1}, {"arrows": "to", "from": "sst", "to": "sst_djm_OR", "width": 1}, {"arrows": "to", "from": "x11_y11_XOR", "to": "sbg", "width": 1}, {"arrows": "to", "from": "x05", "to": "x05_y05_AND", "width": 1}, {"arrows": "to", "from": "x05", "to": "y05_x05_XOR", "width": 1}, {"arrows": "to", "from": "x05_y05_AND", "to": "vwc", "width": 1}, {"arrows": "to", "from": "y05", "to": "x05_y05_AND", "width": 1}, {"arrows": "to", "from": "y05", "to": "y05_x05_XOR", "width": 1}, {"arrows": "to", "from": "pds_wsg_AND", "to": "qsm", "width": 1}, {"arrows": "to", "from": "qsm", "to": "kvp_qsm_OR", "width": 1}, {"arrows": "to", "from": "scd_rrq_AND", "to": "bqj", "width": 1}, {"arrows": "to", "from": "bqj", "to": "kgh_bqj_OR", "width": 1}, {"arrows": "to", "from": "pnh_nbp_XOR", "to": "z17", "width": 1}, {"arrows": "to", "from": "scd_rrq_XOR", "to": "z19", "width": 1}, {"arrows": "to", "from": "y12", "to": "y12_x12_AND", "width": 1}, {"arrows": "to", "from": "y12", "to": "x12_y12_XOR", "width": 1}, {"arrows": "to", "from": "y12_x12_AND", "to": "rtn", "width": 1}, {"arrows": "to", "from": "x12", "to": "y12_x12_AND", "width": 1}, {"arrows": "to", "from": "x12", "to": "x12_y12_XOR", "width": 1}, {"arrows": "to", "from": "btr", "to": "btr_bjm_AND", "width": 1}, {"arrows": "to", "from": "btr", "to": "btr_bjm_XOR", "width": 1}, {"arrows": "to", "from": "btr_bjm_AND", "to": "bsd", "width": 1}, {"arrows": "to", "from": "bsd", "to": "fvm_bsd_OR", "width": 1}, {"arrows": "to", "from": "hcb_qcg_OR", "to": "rwm", "width": 1}, {"arrows": "to", "from": "y39_x39_XOR", "to": "pth", "width": 1}, {"arrows": "to", "from": "x12_y12_XOR", "to": "ggj", "width": 1}, {"arrows": "to", "from": "ggj", "to": "hcv_ggj_AND", "width": 1}, {"arrows": "to", "from": "ggj", "to": "hcv_ggj_XOR", "width": 1}, {"arrows": "to", "from": "pmv", "to": "pmv_rbk_AND", "width": 1}, {"arrows": "to", "from": "pmv", "to": "pmv_rbk_XOR", "width": 1}, {"arrows": "to", "from": "pmv_rbk_AND", "to": "z13", "width": 1}, {"arrows": "to", "from": "y09_x09_XOR", "to": "gdw", "width": 1}, {"arrows": "to", "from": "vft_hkk_XOR", "to": "z23", "width": 1}, {"arrows": "to", "from": "fwv", "to": "fwv_rwk_XOR", "width": 1}, {"arrows": "to", "from": "fwv", "to": "rwk_fwv_AND", "width": 1}, {"arrows": "to", "from": "fwv_rwk_XOR", "to": "z32", "width": 1}, {"arrows": "to", "from": "rwk", "to": "fwv_rwk_XOR", "width": 1}, {"arrows": "to", "from": "rwk", "to": "rwk_fwv_AND", "width": 1}, {"arrows": "to", "from": "wjw_hqw_OR", "to": "wbw", "width": 1}, {"arrows": "to", "from": "wbw", "to": "wbw_knh_XOR", "width": 1}, {"arrows": "to", "from": "wbw", "to": "knh_wbw_AND", "width": 1}, {"arrows": "to", "from": "hcv", "to": "hcv_ggj_AND", "width": 1}, {"arrows": "to", "from": "hcv", "to": "hcv_ggj_XOR", "width": 1}, {"arrows": "to", "from": "hcv_ggj_AND", "to": "wrg", "width": 1}, {"arrows": "to", "from": "sss", "to": "sss_cmv_OR", "width": 1}, {"arrows": "to", "from": "sss_cmv_OR", "to": "fdb", "width": 1}, {"arrows": "to", "from": "cmv", "to": "sss_cmv_OR", "width": 1}, {"arrows": "to", "from": "x08", "to": "x08_y08_XOR", "width": 1}, {"arrows": "to", "from": "x08", "to": "y08_x08_AND", "width": 1}, {"arrows": "to", "from": "x08_y08_XOR", "to": "btr", "width": 1}, {"arrows": "to", "from": "y08", "to": "x08_y08_XOR", "width": 1}, {"arrows": "to", "from": "y08", "to": "y08_x08_AND", "width": 1}, {"arrows": "to", "from": "fvp_gvr_OR", "to": "bht", "width": 1}, {"arrows": "to", "from": "vhb_bpf_XOR", "to": "z14", "width": 1}, {"arrows": "to", "from": "x00", "to": "x00_y00_XOR", "width": 1}, {"arrows": "to", "from": "x00", "to": "x00_y00_AND", "width": 1}, {"arrows": "to", "from": "x00_y00_XOR", "to": "z00", "width": 1}, {"arrows": "to", "from": "y00", "to": "x00_y00_XOR", "width": 1}, {"arrows": "to", "from": "y00", "to": "x00_y00_AND", "width": 1}, {"arrows": "to", "from": "tmp", "to": "tmp_gph_AND", "width": 1}, {"arrows": "to", "from": "tmp", "to": "tmp_gph_XOR", "width": 1}, {"arrows": "to", "from": "tmp_gph_AND", "to": "cmv", "width": 1}, {"arrows": "to", "from": "gph", "to": "tmp_gph_AND", "width": 1}, {"arrows": "to", "from": "gph", "to": "tmp_gph_XOR", "width": 1}, {"arrows": "to", "from": "x29", "to": "x29_y29_XOR", "width": 1}, {"arrows": "to", "from": "x29", "to": "y29_x29_AND", "width": 1}, {"arrows": "to", "from": "x29_y29_XOR", "to": "tmp", "width": 1}, {"arrows": "to", "from": "y29", "to": "x29_y29_XOR", "width": 1}, {"arrows": "to", "from": "y29", "to": "y29_x29_AND", "width": 1}, {"arrows": "to", "from": "whv_ngt_AND", "to": "wkd", "width": 1}, {"arrows": "to", "from": "tgb_dtw_XOR", "to": "z15", "width": 1}, {"arrows": "to", "from": "pth_vjb_AND", "to": "cvf", "width": 1}, {"arrows": "to", "from": "cvf", "to": "cvf_jmc_OR", "width": 1}, {"arrows": "to", "from": "y33", "to": "y33_x33_AND", "width": 1}, {"arrows": "to", "from": "y33", "to": "y33_x33_XOR", "width": 1}, {"arrows": "to", "from": "y33_x33_AND", "to": "vbm", "width": 1}, {"arrows": "to", "from": "x33", "to": "y33_x33_AND", "width": 1}, {"arrows": "to", "from": "x33", "to": "y33_x33_XOR", "width": 1}, {"arrows": "to", "from": "x38_y38_XOR", "to": "jkm", "width": 1}, {"arrows": "to", "from": "x14_y14_XOR", "to": "vhb", "width": 1}, {"arrows": "to", "from": "y05_x05_XOR", "to": "tpq", "width": 1}, {"arrows": "to", "from": "tdg_tmq_OR", "to": "hkk", "width": 1}, {"arrows": "to", "from": "bfg_tdd_AND", "to": "gtk", "width": 1}, {"arrows": "to", "from": "tdd", "to": "bfg_tdd_AND", "width": 1}, {"arrows": "to", "from": "tdd", "to": "bfg_tdd_XOR", "width": 1}, {"arrows": "to", "from": "y03", "to": "y03_x03_XOR", "width": 1}, {"arrows": "to", "from": "y03", "to": "x03_y03_AND", "width": 1}, {"arrows": "to", "from": "y03_x03_XOR", "to": "rgn", "width": 1}, {"arrows": "to", "from": "x03", "to": "y03_x03_XOR", "width": 1}, {"arrows": "to", "from": "x03", "to": "x03_y03_AND", "width": 1}, {"arrows": "to", "from": "x04", "to": "x04_y04_XOR", "width": 1}, {"arrows": "to", "from": "x04", "to": "x04_y04_AND", "width": 1}, {"arrows": "to", "from": "x04_y04_XOR", "to": "mpq", "width": 1}, {"arrows": "to", "from": "y04", "to": "x04_y04_XOR", "width": 1}, {"arrows": "to", "from": "y04", "to": "x04_y04_AND", "width": 1}, {"arrows": "to", "from": "pmv_rbk_XOR", "to": "hsw", "width": 1}, {"arrows": "to", "from": "hsw", "to": "vjf_hsw_OR", "width": 1}, {"arrows": "to", "from": "wjm_rhk_AND", "to": "pcn", "width": 1}, {"arrows": "to", "from": "kgh_bqj_OR", "to": "mwk", "width": 1}, {"arrows": "to", "from": "spf_pjt_OR", "to": "gwd", "width": 1}, {"arrows": "to", "from": "y29_x29_AND", "to": "sss", "width": 1}, {"arrows": "to", "from": "mqr_bkc_OR", "to": "fwv", "width": 1}, {"arrows": "to", "from": "gpt", "to": "gpt_fcf_AND", "width": 1}, {"arrows": "to", "from": "gpt", "to": "fcf_gpt_XOR", "width": 1}, {"arrows": "to", "from": "gpt_fcf_AND", "to": "bmg", "width": 1}, {"arrows": "to", "from": "fcf", "to": "gpt_fcf_AND", "width": 1}, {"arrows": "to", "from": "fcf", "to": "fcf_gpt_XOR", "width": 1}, {"arrows": "to", "from": "y13", "to": "y13_x13_AND", "width": 1}, {"arrows": "to", "from": "y13", "to": "x13_y13_XOR", "width": 1}, {"arrows": "to", "from": "y13_x13_AND", "to": "vjf", "width": 1}, {"arrows": "to", "from": "x13", "to": "y13_x13_AND", "width": 1}, {"arrows": "to", "from": "x13", "to": "x13_y13_XOR", "width": 1}, {"arrows": "to", "from": "vjf", "to": "vjf_hsw_OR", "width": 1}, {"arrows": "to", "from": "y32", "to": "y32_x32_XOR", "width": 1}, {"arrows": "to", "from": "y32", "to": "x32_y32_AND", "width": 1}, {"arrows": "to", "from": "y32_x32_XOR", "to": "rwk", "width": 1}, {"arrows": "to", "from": "x32", "to": "y32_x32_XOR", "width": 1}, {"arrows": "to", "from": "x32", "to": "x32_y32_AND", "width": 1}, {"arrows": "to", "from": "fvm", "to": "fvm_bsd_OR", "width": 1}, {"arrows": "to", "from": "fvm_bsd_OR", "to": "tns", "width": 1}, {"arrows": "to", "from": "y20_x20_XOR", "to": "rfg", "width": 1}, {"arrows": "to", "from": "bgt_qjc_AND", "to": "tgm", "width": 1}, {"arrows": "to", "from": "bht_jkm_XOR", "to": "z38", "width": 1}, {"arrows": "to", "from": "gmp_rgn_XOR", "to": "z03", "width": 1}, {"arrows": "to", "from": "y15_x15_AND", "to": "bsc", "width": 1}, {"arrows": "to", "from": "bsc", "to": "bsc_gqg_OR", "width": 1}, {"arrows": "to", "from": "spd", "to": "spd_rmv_OR", "width": 1}, {"arrows": "to", "from": "spd_rmv_OR", "to": "pbn", "width": 1}, {"arrows": "to", "from": "rmv", "to": "spd_rmv_OR", "width": 1}, {"arrows": "to", "from": "x04_y04_AND", "to": "vds", "width": 1}, {"arrows": "to", "from": "y06_x06_AND", "to": "cbn", "width": 1}, {"arrows": "to", "from": "cbn", "to": "dvw_cbn_OR", "width": 1}, {"arrows": "to", "from": "fjq_djd_XOR", "to": "z37", "width": 1}, {"arrows": "to", "from": "x41_y41_AND", "to": "rmv", "width": 1}, {"arrows": "to", "from": "swd_bcv_XOR", "to": "z21", "width": 1}, {"arrows": "to", "from": "tcb_jkh_AND", "to": "qvk", "width": 1}, {"arrows": "to", "from": "dvw", "to": "dvw_cbn_OR", "width": 1}, {"arrows": "to", "from": "dvw_cbn_OR", "to": "mkm", "width": 1}, {"arrows": "to", "from": "ghh_gnn_XOR", "to": "z01", "width": 1}, {"arrows": "to", "from": "x00_y00_AND", "to": "gnn", "width": 1}, {"arrows": "to", "from": "jct", "to": "jct_gms_OR", "width": 1}, {"arrows": "to", "from": "jct_gms_OR", "to": "bgt", "width": 1}, {"arrows": "to", "from": "x03_y03_AND", "to": "wwt", "width": 1}, {"arrows": "to", "from": "y08_x08_AND", "to": "fvm", "width": 1}, {"arrows": "to", "from": "wpw_pnq_OR", "to": "hcv", "width": 1}, {"arrows": "to", "from": "pnq", "to": "wpw_pnq_OR", "width": 1}, {"arrows": "to", "from": "nck_qhq_OR", "to": "msp", "width": 1}, {"arrows": "to", "from": "wbw_knh_XOR", "to": "z24", "width": 1}, {"arrows": "to", "from": "qkf_wkr_XOR", "to": "z26", "width": 1}, {"arrows": "to", "from": "y16_x16_XOR", "to": "fcf", "width": 1}, {"arrows": "to", "from": "cvf_jmc_OR", "to": "tgv", "width": 1}, {"arrows": "to", "from": "rwk_fwv_AND", "to": "vkw", "width": 1}, {"arrows": "to", "from": "y43_x43_AND", "to": "mbw", "width": 1}, {"arrows": "to", "from": "tmp_gph_XOR", "to": "z29", "width": 1}, {"arrows": "to", "from": "y35", "to": "y35_x35_AND", "width": 1}, {"arrows": "to", "from": "y35", "to": "x35_y35_XOR", "width": 1}, {"arrows": "to", "from": "y35_x35_AND", "to": "cck", "width": 1}, {"arrows": "to", "from": "x35", "to": "y35_x35_AND", "width": 1}, {"arrows": "to", "from": "x35", "to": "x35_y35_XOR", "width": 1}, {"arrows": "to", "from": "knh_wbw_AND", "to": "dcn", "width": 1}, {"arrows": "to", "from": "y36_x36_AND", "to": "bkm", "width": 1}, {"arrows": "to", "from": "hcv_ggj_XOR", "to": "z12", "width": 1}, {"arrows": "to", "from": "tvw", "to": "tvw_cdj_OR", "width": 1}, {"arrows": "to", "from": "tvw_cdj_OR", "to": "gph", "width": 1}, {"arrows": "to", "from": "fcf_gpt_XOR", "to": "z16", "width": 1}, {"arrows": "to", "from": "msp_fwk_XOR", "to": "z02", "width": 1}, {"arrows": "to", "from": "y25_x25_XOR", "to": "pds", "width": 1}, {"arrows": "to", "from": "qrb_shn_OR", "to": "vjb", "width": 1}, {"arrows": "to", "from": "vjf_hsw_OR", "to": "bpf", "width": 1}, {"arrows": "to", "from": "x44_y44_AND", "to": "dwj", "width": 1}, {"arrows": "to", "from": "x21_y21_XOR", "to": "bcv", "width": 1}, {"arrows": "to", "from": "y42_x42_XOR", "to": "fvk", "width": 1}, {"arrows": "to", "from": "cgh_cjs_AND", "to": "spd", "width": 1}, {"arrows": "to", "from": "dnk_drk_XOR", "to": "z22", "width": 1}, {"arrows": "to", "from": "sst_djm_OR", "to": "dkc", "width": 1}, {"arrows": "to", "from": "bfg_tdd_XOR", "to": "z35", "width": 1}, {"arrows": "to", "from": "btr_bjm_XOR", "to": "z08", "width": 1}, {"arrows": "to", "from": "djg_vfr_OR", "to": "drk", "width": 1}, {"arrows": "to", "from": "bsc_gqg_OR", "to": "gpt", "width": 1}, {"arrows": "to", "from": "fvk_pbn_XOR", "to": "z42", "width": 1}, {"arrows": "to", "from": "hfj_vkd_OR", "to": "cgh", "width": 1}, {"arrows": "to", "from": "gwd_sbg_AND", "to": "pnq", "width": 1}, {"arrows": "to", "from": "x32_y32_AND", "to": "jjb", "width": 1}, {"arrows": "to", "from": "kvp_qsm_OR", "to": "qkf", "width": 1}, {"arrows": "to", "from": "x17_y17_AND", "to": "jct", "width": 1}, {"arrows": "to", "from": "y02", "to": "y02_x02_XOR", "width": 1}, {"arrows": "to", "from": "y02", "to": "x02_y02_AND", "width": 1}, {"arrows": "to", "from": "y02_x02_XOR", "to": "fwk", "width": 1}, {"arrows": "to", "from": "x02", "to": "y02_x02_XOR", "width": 1}, {"arrows": "to", "from": "x02", "to": "x02_y02_AND", "width": 1}, {"arrows": "to", "from": "y33_x33_XOR", "to": "wjm", "width": 1}, {"arrows": "to", "from": "x13_y13_XOR", "to": "pmv", "width": 1}, {"arrows": "to", "from": "y28_x28_AND", "to": "tvw", "width": 1}, {"arrows": "to", "from": "fsw_nhj_AND", "to": "dvw", "width": 1}, {"arrows": "to", "from": "x02_y02_AND", "to": "gpn", "width": 1}, {"arrows": "to", "from": "x35_y35_XOR", "to": "tdd", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
