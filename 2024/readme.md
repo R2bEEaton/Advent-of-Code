@@ -43,6 +43,8 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 20: Race Condition](notes/20.md)         | 25:27   | 13:03    | 38:30    | 888        |
 | [Day 21: Keypad Conundrum](notes/21.md)       | 1:31:41 | 9:31:33  | 11:03:14 | 2754       |
 | [Day 22: Monkey Market](notes/22.md)          | 6:42    | 19:25    | 26:07    | 654        |
+| [Day 23: LAN Party](notes/23.md)              | 8:39:06 | 2:29     | 8:41:35  | 12244      |
+| [Day 24: Crossed Wires](notes/24.md)          | 18:47   | 1:32:33  | 1:51:20  | 887        |
 
 > Referenced other solutions / hints for: ...
 >
