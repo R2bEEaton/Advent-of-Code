@@ -45,8 +45,9 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 22: Monkey Market](notes/22.md)          | 6:42    | 19:25    | 26:07    | 654        |
 | [Day 23: LAN Party](notes/23.md)              | 8:39:06 | 2:29     | 8:41:35  | 12244      |
 | [Day 24: Crossed Wires](notes/24.md)          | 18:47   | 1:32:33  | 1:51:20  | 887        |
+| [Day 25: Code Chronicle](notes/25.md)         | 7:40    | 0:01     | 7:41     | 349        |
 
-> Referenced other solutions / hints for: ...
+> Referenced other solutions / hints for: **None of the days!! YAY!**
 >
 > Points column conspicuously removed 2024-12-05
 >
