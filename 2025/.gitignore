@@ -1,0 +1,5 @@
+/.vscode
+/code/helpers/sess
+/code/testdata1.txt
+/code/aoc.txt
+**/__pycache__/
