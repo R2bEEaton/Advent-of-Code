@@ -16,6 +16,6 @@ A repository to store my ([Ryan Eaton](https://www.linkedin.com/in/ryan-l-eaton/
 | [2022](2022/README.md) | **50 :tada:** | :white_check_mark: |
 | [2023](2023/readme.md) | **50 :tada:** | :white_check_mark: |
 | [2024](2024/readme.md) | **50 :tada:** | :white_check_mark: |
-| [2024](2025/readme.md) | *in progress* :red_circle: | :white_check_mark: |
+| [2025](2025/readme.md) | *in progress* :red_circle: | :white_check_mark: |
 
 *Some of these used to be stored in separate repos.*
