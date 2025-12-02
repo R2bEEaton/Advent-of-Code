@@ -10,7 +10,6 @@ for id in din.split(","):
     for x in range(int(id1), int(id2) + 1):
         xs = str(x)
         if re.match(r"(.+?)\1+$", xs):
-            print(x)
             ans += x
 
 aocd_submit(ans)
