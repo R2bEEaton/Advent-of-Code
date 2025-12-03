@@ -181,7 +181,7 @@ def main():
 
     # Update README
     print("\nUpdating README...")
-    update_readme(day, puzzle_name, delta, parta, partb)
+    update_readme(day, puzzle_name, parta, delta, partb)
 
     print("\n✓ All done!")
 
