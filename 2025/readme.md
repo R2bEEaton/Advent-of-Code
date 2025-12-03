@@ -23,3 +23,4 @@ This is pretty much a table of contents for my solution times and equivalent poi
 |--------------------------------------|--------|--------|-------|
 | [Day 1: Secret Entrance](notes/1.md) | 2:06   | 1:09   | 3:15  |
 | [Day 2: Gift Shop](notes/2.md)       | 6:42   | 6:11   | 12:53 |
+| [Day 3: Lobby](notes/3.md)           | 2:02   | 42:16  | 44:18 |
