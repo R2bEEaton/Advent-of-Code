@@ -27,6 +27,7 @@ class Matrix:
         self.default = default
         self.wrap = wrap
         self.matrix = defaultdict(lambda: default)
+        self.value_positions = defaultdict(set)
 
     def _convert_pos(self, pos):
         """
@@ -61,7 +62,24 @@ class Matrix:
             raise Exception("Size of pos does not match initialized size.")
         if not self._is_in_bounds(pos):
             return None  # raise IndexError("Cannot SET outside bounds of matrix.")
-        self.matrix[self._convert_pos(pos)] = val
+
+        pos_key = self._convert_pos(pos)
+        old_val = self.matrix.get(pos_key)
+
+        # Remove old value's position mapping if it exists
+        if old_val is not None and old_val != self.default:
+            pos_tuple = tuple(pos)
+            if pos_tuple in self.value_positions[old_val]:
+                self.value_positions[old_val].remove(pos_tuple)
+                if not self.value_positions[old_val]:
+                    del self.value_positions[old_val]
+
+        # Set new value
+        self.matrix[pos_key] = val
+
+        # Add new value's position mapping
+        if val != self.default:
+            self.value_positions[val].add(tuple(pos))
 
     def get(self, pos):
         """
@@ -90,13 +108,9 @@ class Matrix:
             val (any): The value to search for.
 
         Yields:
-            list: Positions where the value is found.
+            set: Positions where the value is found.
         """
-        out = []
-        for k, v in self:
-            if val == v:
-                out.append(k)
-        return out
+        return self.value_positions.get(val)
 
     def _is_in_bounds(self, pos):
         """
@@ -205,7 +219,30 @@ class Matrix:
             neighbor_pos = tuple(p + d for p, d in zip(pos, delta))
             yield neighbor_pos, self.get(neighbor_pos)
 
+    def count_neighbors(self, pos, target, diag = False):
+        """
+        Count neighbors matching target of a specific position in the matrix.
 
+        Args:
+            pos (list): The position to find neighbors for.
+            target (any): The target to count among neighbors.
+            diag (bool): Whether to include diagonal neighbors (default: False).
+
+        Yields:
+            int: An integer containing the number of matching neighbors.
+        """
+        count = 0
+        deltas = product([-1, 0, 1], repeat=len(self.size))
+        for delta in deltas:
+            if not diag and sum(abs(d) for d in delta) != 1:
+                continue
+            if diag and all(d == 0 for d in delta):
+                continue
+
+            neighbor_pos = tuple(p + d for p, d in zip(pos, delta))
+            if neighbor_pos in self.findall(target):
+                count += 1
+        return count
 
 def from_grid(din, data_type=str):
     """

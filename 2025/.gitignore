@@ -3,3 +3,5 @@
 /code/testdata1.txt
 /code/aoc.txt
 **/__pycache__/
+.claude/*
+*.pyspy
