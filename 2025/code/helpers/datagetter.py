@@ -31,10 +31,6 @@ def aocd_data_in(split=True, numbers=False, n_type=int):
         with open(aoc_path, "w+") as f:
             f.write(data)
 
-    # Keep track of start time
-    global start_time
-    start_time = time.perf_counter()
-
     # Parse
     if split:
         data = data.splitlines()
@@ -46,6 +42,10 @@ def aocd_data_in(split=True, numbers=False, n_type=int):
 
     print("| %s Data loaded.  |\n|====================|" % data_ver)
 
+    # Keep track of start time
+    global start_time
+    start_time = time.perf_counter()
+    
     return data, submit if data_ver == "Real" else dummy_submit
 
 
