@@ -27,3 +27,4 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 4: Printing Department](notes/04.md) | 3:56     | 1:08     | 5:04  |
 | [Day 5: Cafeteria](notes/05.md)           | 3:05     | 17:49    | 20:54 |
 | [Day 6: Trash Compactor](notes/06.md)     | 5:05     | 6:47     | 11:52 |
+| [Day 7: Laboratories](notes/07.md)        | 7:43     | 11:45    | 19:28 |
