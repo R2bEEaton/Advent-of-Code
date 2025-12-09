@@ -1,4 +1,3 @@
-import os
 import requests
 import json
 from datetime import datetime, time, timedelta

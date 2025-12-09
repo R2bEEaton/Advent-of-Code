@@ -19,13 +19,14 @@ I'm going for speed, maybe? [This year's changes make that less serious.](https:
 
 This is pretty much a table of contents for my solution times and equivalent points.
 
-| Title                                     | Part One | Part Two | Total |
-|-------------------------------------------|----------|----------|-------|
-| [Day 1: Secret Entrance](notes/01.md)     | 2:06     | 1:09     | 3:15  |
-| [Day 2: Gift Shop](notes/02.md)           | 6:42     | 6:11     | 12:53 |
-| [Day 3: Lobby](notes/03.md)               | 2:02     | 42:16    | 44:18 |
-| [Day 4: Printing Department](notes/04.md) | 3:56     | 1:08     | 5:04  |
-| [Day 5: Cafeteria](notes/05.md)           | 3:05     | 17:49    | 20:54 |
-| [Day 6: Trash Compactor](notes/06.md)     | 5:05     | 6:47     | 11:52 |
-| [Day 7: Laboratories](notes/07.md)        | 7:43     | 11:45    | 19:28 |
-| [Day 8: Playground](notes/08.md)          | 45:43    | 7:22     | 53:05 |
+| Title                                     | Part One | Part Two | Total   |
+|-------------------------------------------|----------|----------|---------|
+| [Day 1: Secret Entrance](notes/01.md)     | 2:06     | 1:09     | 3:15    |
+| [Day 2: Gift Shop](notes/02.md)           | 6:42     | 6:11     | 12:53   |
+| [Day 3: Lobby](notes/03.md)               | 2:02     | 42:16    | 44:18   |
+| [Day 4: Printing Department](notes/04.md) | 3:56     | 1:08     | 5:04    |
+| [Day 5: Cafeteria](notes/05.md)           | 3:05     | 17:49    | 20:54   |
+| [Day 6: Trash Compactor](notes/06.md)     | 5:05     | 6:47     | 11:52   |
+| [Day 7: Laboratories](notes/07.md)        | 7:43     | 11:45    | 19:28   |
+| [Day 8: Playground](notes/08.md)          | 45:43    | 7:22     | 53:05   |
+| [Day 9: Movie Theater](notes/09.md)       | 3:06     | 2:34:59  | 2:38:05 |
