@@ -30,4 +30,7 @@ This is pretty much a table of contents for my solution times and equivalent poi
 | [Day 7: Laboratories](notes/07.md)        | 7:43     | 11:45    | 19:28   |
 | [Day 8: Playground](notes/08.md)          | 45:43    | 7:22     | 53:05   |
 | [Day 9: Movie Theater](notes/09.md)       | 3:06     | 2:34:59  | 2:38:05 |
-| [Day 10: Factory](notes/10.md)            | 1:10:11  | 37:44    | 1:47:55 |
+| [Day 10: Factory](notes/10.md)*           | 1:10:11  | 37:44    | 1:47:55 |
+| [Day 11: Reactor](notes/11.md)*           | 8:04:38  | 1:39:42  | 9:44:20 |
+
+> \* Days I accidentally slept in
